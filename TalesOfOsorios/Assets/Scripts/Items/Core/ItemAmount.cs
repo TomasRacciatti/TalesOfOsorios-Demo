@@ -23,10 +23,11 @@ namespace Items.Core
             amount = newItemAmount.Amount;
         }
 
-        public ItemAmount(SoItem newSoItem, int newAmount)
+        public ItemAmount(SoItem newSoItem = null, int newAmount = 0)
         {
             soItem = newSoItem;
-            amount = newAmount;
+            amount = 0;
+            SetAmount(newAmount);
         }
         
         public int SetItem(ItemAmount itemAmount)
@@ -44,12 +45,24 @@ namespace Items.Core
         public void SetItem(SoItem newItem)
         {
             soItem = newItem;
+            
+            if (soItem == null)
+            {
+                amount = 0;
+                return;
+            }
+            
+            if (amount > Stack)
+                amount = Stack;
         }
         
         public int SetAmount(int newAmount)
         {
             if (!ValidSoItem)
+            {
+                Clear();
                 return newAmount;
+            }
 
             int clampedAmount = Mathf.Clamp(newAmount, 0, Stack);
 
@@ -58,6 +71,7 @@ namespace Items.Core
             if (amount <= 0)
                 Clear();
 
+            // The remainder of what didnt fit in the stack
             return newAmount - clampedAmount; 
         }
         
@@ -70,7 +84,15 @@ namespace Items.Core
         public int RemoveAmount(int amountToRemove)
         {
             if (IsEmpty || amountToRemove <= 0) return amountToRemove;
-            return SetAmount(amount - amountToRemove);
+            
+            int removable = Mathf.Min(amount, amountToRemove);
+            amount -= removable;
+
+            if (amount <= 0)
+                Clear();
+
+            int remainingToRemove = amountToRemove - removable;
+            return remainingToRemove;
         }
 
         public void Clear()

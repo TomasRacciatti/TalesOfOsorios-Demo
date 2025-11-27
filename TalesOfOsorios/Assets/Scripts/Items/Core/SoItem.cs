@@ -10,7 +10,7 @@ namespace Items.Core
         [SerializeField] private Sprite icon;
         [SerializeField, TextArea] private string description = "Item Description";
         [SerializeField, TextArea] private string summary = "Heals 20 pts";
-        [SerializeField, Min(1)] private int stack = 10;
+        [SerializeField, Min(1)] private int stack = 5;
         
         [Header("Usage / Equipment")] 
         [SerializeField] private bool isConsumable; 
