@@ -1087,7 +1087,7 @@ GameObject:
   - component: {fileID: 212126825733419902}
   - component: {fileID: 2008761996010219512}
   - component: {fileID: 1122475787421923592}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: R_Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2577,7 +2577,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4379236875996782}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: R_Weapon_Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
