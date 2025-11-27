@@ -27,6 +27,7 @@ namespace Items.Inventory
         Chest,
         Waist,
         Arms,
+        Hands,
         Shoulder,
         Legs
     }
