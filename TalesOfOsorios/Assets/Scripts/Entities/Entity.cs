@@ -6,20 +6,35 @@ namespace Entities
     public abstract class Entity : MonoBehaviour, IDamageable
     {
         [SerializeField] protected EntityStats stats;
+        
+        [Header("Combat")]
+        [SerializeField] protected WeaponCollider weaponCollider;
+        [SerializeField] protected float heavyAttackMultiplier = 1.5f;
+        
+        [Header("Animation")]
+        [SerializeField] protected Animator animator;
     
         protected float currentHealth;
         protected float currentSpeed;
         protected Rigidbody2D rb;
         protected bool isDead = false;
+        protected bool isAttacking = false;
     
         public float CurrentHealth => currentHealth;
         public float CurrentSpeed => currentSpeed;
         public bool IsDead => isDead;
         public EntityStats Stats => stats;
         public float MaxHealth => stats.MaxHealth;
+        public bool IsAttacking => isAttacking;
     
         public event Action<float> OnHealthChanged;
         public event Action<float> OnDamageReceived;
+        
+        private const string ANIM_SPEED = "Speed";
+        private const string ANIM_ATTACK = "Attack";
+        private const string ANIM_HEAVY_ATTACK = "HeavyAttack";
+        private const string ANIM_HIT = "Hit";
+        private const string ANIM_DIE = "Die";
 
         protected virtual void Awake()
         {
@@ -30,6 +45,12 @@ namespace Entities
                 Debug.LogError($"EntityStats missing on {gameObject.name}");
                 return;
             }
+            
+            if (animator == null)
+                animator = GetComponentInChildren<Animator>();
+            
+            if (weaponCollider == null)
+                weaponCollider = GetComponentInChildren<WeaponCollider>();
         
             currentHealth = stats.MaxHealth;
             currentSpeed = stats.BaseSpeed;
@@ -40,10 +61,12 @@ namespace Entities
             if (isDead) return;
             
             currentHealth -= damage;
-            currentHealth = Mathf.Clamp(currentHealth, 0, stats.MaxHealth);
+            currentHealth = Mathf.Max(currentHealth, 0f);
             
             OnHealthChanged?.Invoke(currentHealth);
             OnDamageReceived?.Invoke(damage);
+            
+            HandleDamageEffect(damage); 
 
             if (currentHealth <= 0)
                 Die();
@@ -54,15 +77,84 @@ namespace Entities
             if (isDead) return;
             
             currentHealth += healValue;
-            currentHealth = Mathf.Clamp(currentHealth, 0, stats.MaxHealth);
+            currentHealth = Mathf.Min(currentHealth, stats.MaxHealth);
             
             OnHealthChanged?.Invoke(currentHealth);
         }
 
         public virtual void Die()
         {
+            if (isDead) return;
+            
             isDead = true;
             HandleDeath();
+        }
+        
+        public void UpdateMovementAnimation(float speed)
+        {
+            if (animator == null || isDead) return;
+            
+            animator.SetFloat(ANIM_SPEED, Mathf.Abs(speed));
+        }
+        
+        public void PerformAttack()
+        {
+            if (isAttacking || isDead) return;
+        
+            isAttacking = true;
+            animator.SetTrigger(ANIM_ATTACK);
+        }
+    
+        public void PerformHeavyAttack()
+        {
+            if (isAttacking || isDead) return;
+        
+            isAttacking = true;
+            animator.SetTrigger(ANIM_HEAVY_ATTACK);
+        }
+        
+        public void OnAttackStart()
+        {
+            if (weaponCollider == null) return;
+        
+            float damage = GetRandomAttackDamage();
+            weaponCollider.EnableCollider(damage);
+        }
+    
+        public void OnHeavyAttackStart()
+        {
+            if (weaponCollider == null) return;
+        
+            float damage = GetRandomAttackDamage() * heavyAttackMultiplier;
+            weaponCollider.EnableCollider(damage);
+        }
+    
+        public void OnAttackEnd()
+        {
+            if (weaponCollider == null) return;
+        
+            weaponCollider.DisableCollider();
+        }
+    
+        public void OnAttackAnimationEnd()
+        {
+            isAttacking = false;
+        }
+        
+        protected virtual void HandleDamageEffect(float damage)
+        {
+            if (animator != null && !isDead)
+            {
+                animator.SetTrigger(ANIM_HIT);
+            }
+        }
+        
+        protected virtual void HandleDeath()
+        {
+            if (animator != null)
+            {
+                animator.SetTrigger(ANIM_DIE);
+            }
         }
         
         protected void ModifySpeed(float speedMultiplier)
@@ -79,8 +171,5 @@ namespace Entities
         {
             return UnityEngine.Random.Range(stats.MinDamage, stats.MaxDamage);
         }
-        
-        protected abstract void HandleDamageEffect(float damage);
-        protected abstract void HandleDeath();
     }
 }
