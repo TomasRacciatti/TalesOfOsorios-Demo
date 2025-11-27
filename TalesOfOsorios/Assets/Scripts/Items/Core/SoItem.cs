@@ -1,3 +1,4 @@
+using Items.Inventory;
 using UnityEngine;
 
 namespace Items.Core
@@ -15,7 +16,7 @@ namespace Items.Core
         [Header("Usage / Equipment")] 
         [SerializeField] private bool isConsumable; 
         [SerializeField] private bool isEquipable;
-        [SerializeField] private string equipSlotId;
+        [SerializeField] private EquipSlotId equipSlotId;
 
         public string ItemName => itemName;
         public Sprite Icon => icon;
@@ -23,6 +24,6 @@ namespace Items.Core
         public int Stack => stack;
         public bool IsConsumable => isConsumable;
         public bool IsEquipable => isEquipable;
-        public string EquipSlotId => equipSlotId;
+        public EquipSlotId EquipSlotId => equipSlotId;
     }
 }
