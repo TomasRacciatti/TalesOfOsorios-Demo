@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -46,6 +47,21 @@ namespace Entities.Player
             playerInput.Disable();
         }
 
+        private void FixedUpdate()
+        {
+            if (playerEntity.IsDead) return;
+            
+            HandleMovement();
+        }
+
+        private void Update()
+        {
+            if (playerEntity.IsDead) return;
+            
+            HandleFlip();
+            UpdateAnimations();
+        }
+
         public void OnClimb(InputAction.CallbackContext context)
         {
             // TODO: Climbing logic
@@ -53,7 +69,8 @@ namespace Entities.Player
 
         public void OnMove(InputAction.CallbackContext context)
         {
-            moveInput = context.ReadValue<Vector2>();
+            float horizontalInput = context.ReadValue<float>();
+            moveInput = new Vector2(horizontalInput, 0f);
         }
 
         public void OnAttack(InputAction.CallbackContext context)
