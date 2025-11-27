@@ -29,7 +29,7 @@ namespace Entities
         public event Action<float> OnHealthChanged;
         public event Action<float> OnDamageReceived;
         
-        private const string ANIM_SPEED = "Speed";
+        private const string ANIM_IS_MOVING = "IsMoving";
         private const string ANIM_ATTACK = "Attack";
         private const string ANIM_HEAVY_ATTACK = "HeavyAttack";
         private const string ANIM_HIT = "Hit";
@@ -91,7 +91,8 @@ namespace Entities
         {
             if (animator == null || isDead) return;
             
-            animator.SetFloat(ANIM_SPEED, Mathf.Abs(speed));
+            bool isMoving = Mathf.Abs(speed) > 0.01f;
+            animator.SetBool(ANIM_IS_MOVING, isMoving);
         }
         
         public void PerformAttack()
