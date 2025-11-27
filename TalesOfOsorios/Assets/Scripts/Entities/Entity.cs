@@ -16,7 +16,6 @@ namespace Entities
     
         protected float currentHealth;
         protected float currentSpeed;
-        protected Rigidbody2D rb;
         protected bool isDead = false;
         protected bool isAttacking = false;
     
@@ -38,8 +37,6 @@ namespace Entities
 
         protected virtual void Awake()
         {
-            rb = GetComponent<Rigidbody2D>();
-        
             if (stats == null)
             {
                 Debug.LogError($"EntityStats missing on {gameObject.name}");
