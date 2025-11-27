@@ -280,6 +280,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4631402364940636}
   - component: {fileID: 6334105301001286360}
+  - component: {fileID: 2261186020870433548}
+  - component: {fileID: 7331897422419722240}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -349,6 +351,52 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.4432602, y: 3.5440094}
   m_EdgeRadius: 0
+--- !u!114 &2261186020870433548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076146770848506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 818dac9fa20c9a84f8805d4970ba230d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.Player.PlayerEntity
+  stats: {fileID: 0}
+  weaponCollider: {fileID: 0}
+  heavyAttackMultiplier: 1.5
+  animator: {fileID: 0}
+--- !u!114 &7331897422419722240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076146770848506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: 367d308cbe3c6c24e83e76bd72e0824f, type: 3}
+  m_NotificationBehavior: 3
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: 
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &1086126198031754
 GameObject:
   m_ObjectHideFlags: 0
@@ -3725,8 +3773,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4651068261199858}
   - component: {fileID: 95222202409354866}
+  - component: {fileID: 387131798483419709}
   m_Layer: 0
-  m_Name: Sprite
+  m_Name: Skeleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3771,6 +3820,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &387131798483419709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899552673243524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 448ba50c9eff6a148953d57449b99855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.Player.AnimationEventRelay
+  playerEntity: {fileID: 2261186020870433548}
 --- !u!1 &1930958338990890
 GameObject:
   m_ObjectHideFlags: 0

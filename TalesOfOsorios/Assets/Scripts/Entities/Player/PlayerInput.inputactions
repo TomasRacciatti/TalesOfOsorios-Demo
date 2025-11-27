@@ -3,7 +3,7 @@
     "name": "PlayerInput",
     "maps": [
         {
-            "name": "Player",
+            "name": "PlayerMapping",
             "id": "40b7d9dc-1a8e-4a88-9fe6-9acbb56455e7",
             "actions": [
                 {
