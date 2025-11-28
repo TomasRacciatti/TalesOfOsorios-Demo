@@ -107,7 +107,10 @@ namespace Entities.Player
 
         public void OnInventory(InputAction.CallbackContext context)
         {
-            // ToDo: open/close inventory
+            if (context.performed && GameManager.Canvas != null)
+            {
+                bool isOpen = GameManager.Canvas.ToggleInventory();
+            }
         }
 
         private void HandleMovement()
