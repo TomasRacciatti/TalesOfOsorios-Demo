@@ -12,6 +12,7 @@ namespace Items.Inventory
         
         [SerializeField] private TMP_Text itemNameText;
         [SerializeField] private TMP_Text itemDescriptionText;
+        [SerializeField] private TMP_Text itemSummaryText;
         [SerializeField] private Image itemIcon;
         
         private RectTransform rectTransform;
@@ -31,6 +32,7 @@ namespace Items.Inventory
             
             instance.itemNameText.text = itemAmount.SoItem.ItemName;
             instance.itemDescriptionText.text = itemAmount.SoItem.Description;
+            instance.itemSummaryText.text = itemAmount.SoItem.Summary;
             instance.itemIcon.sprite = itemAmount.SoItem.Icon;
             instance.gameObject.SetActive(true);
             instance.UpdatePosition();

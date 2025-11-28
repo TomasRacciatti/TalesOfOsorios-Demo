@@ -19,6 +19,7 @@ namespace Items.Core
         public string ItemName => itemName;
         public Sprite Icon => icon;
         public string Description => description;
+        public string Summary => summary;
         public int Stack => stack;
         public EquipSlotId EquipSlotId => equipSlotId;
     }
