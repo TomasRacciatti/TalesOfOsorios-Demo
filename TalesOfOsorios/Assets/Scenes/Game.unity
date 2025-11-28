@@ -1630,6 +1630,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCharacter
       objectReference: {fileID: 0}
+    - target: {fileID: 1638700818590348, guid: e401b93f8d618fb43b67f19b68229e3c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4631402364940636, guid: e401b93f8d618fb43b67f19b68229e3c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.326
@@ -1686,10 +1690,6 @@ PrefabInstance:
     - target: {fileID: 1745276372394913145, guid: a5fa17644acb0194aa305f53800a7c59, type: 3}
       propertyPath: m_Name
       value: ItemPickUp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2493905708600705992, guid: a5fa17644acb0194aa305f53800a7c59, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7385276673597584957, guid: a5fa17644acb0194aa305f53800a7c59, type: 3}
       propertyPath: m_LocalPosition.x

@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using Items.Inventory;
 using UnityEngine;
@@ -7,128 +9,69 @@ namespace Entities.Player
 {
     public class EquipmentVisualManager : MonoBehaviour
     {
-        [Header("Equipment Visuals Mapping")]
-        [SerializeField] private List<EquipmentSlotVisuals> equipmentSlots = new List<EquipmentSlotVisuals>();
-
-        private Dictionary<EquipSlotId, List<GameObject>> _slotVisualsMap;
-        private InvSystem _equipInventoryCache;
+        [SerializeField] private List<GameObject> equipmentVisuals;
+        
+        private InvSystem _invSystem;
+        private List<SpriteRenderer> _spriteRenderers;
         
         private void Awake()
         {
-            InitializeSlotVisualsMap();
-        }
-        
-        public void Initialize(InvSystem equipInventory)
-        {
-            if (equipInventory == null)
+            _spriteRenderers = new List<SpriteRenderer>();
+
+            foreach (var go in equipmentVisuals)
             {
-                return;
-            }
-
-            _equipInventoryCache = equipInventory;
-            equipInventory.OnItemChanged += OnEquipmentChanged;
-
-            RefreshAllEquipmentVisuals();
-        }
-        
-        private void InitializeSlotVisualsMap()
-        {
-            _slotVisualsMap = new Dictionary<EquipSlotId, List<GameObject>>();
-
-            foreach (var slotVisual in equipmentSlots)
-            {
-                if (!_slotVisualsMap.ContainsKey(slotVisual.slotId))
-                {
-                    _slotVisualsMap[slotVisual.slotId] = new List<GameObject>();
-                }
-
-                _slotVisualsMap[slotVisual.slotId].AddRange(slotVisual.visualObjects);
+                if (go == null) continue;
+                
+                var render = go.GetComponent<SpriteRenderer>();
+                
+                if (render != null) _spriteRenderers.Add(render);
             }
         }
 
-        private void OnEquipmentChanged(int slotIndex, ItemAmount itemAmount)
+        private void Start()
         {
-            if (itemAmount == null || itemAmount.IsEmpty)
-            {
-                RefreshAllEquipmentVisuals();
-                return;
-            }
-
-            EquipSlotId slotId = itemAmount.SoItem.EquipSlotId;
-
-            if (slotId == EquipSlotId.None || slotId == EquipSlotId.Potion)
-            {
-                return;
-            }
-
-            UpdateSlotVisuals(slotId, true);
+            StartCoroutine(InitializeEquipmentSystem());
         }
-        
-        private void UpdateSlotVisuals(EquipSlotId slotId, bool isEquipped)
-        {
-            if (!_slotVisualsMap.ContainsKey(slotId))
-            {
-                return;
-            }
 
-            foreach (var visualObject in _slotVisualsMap[slotId])
-            {
-                if (visualObject != null)
-                {
-                    visualObject.SetActive(isEquipped);
-                }
-            }
-        }
-        
-        private void RefreshAllEquipmentVisuals()
-        {
-            foreach (var slotVisuals in _slotVisualsMap.Values)
-            {
-                foreach (var visualObject in slotVisuals)
-                {
-                    if (visualObject != null)
-                    {
-                        visualObject.SetActive(false);
-                    }
-                }
-            }
 
-            InvSystem equipInv = GetEquipInventory();
-            if (equipInv != null)
-            {
-                for (int i = 0; i < equipInv.Items.Count; i++)
-                {
-                    ItemAmount item = equipInv.Items[i];
-                    if (item != null && !item.IsEmpty)
-                    {
-                        EquipSlotId slotId = item.SoItem.EquipSlotId;
-                        if (slotId != EquipSlotId.None && slotId != EquipSlotId.Potion)
-                        {
-                            UpdateSlotVisuals(slotId, true);
-                        }
-                    }
-                }
-            }
-        }
-        
-        private InvSystem GetEquipInventory()
+        private void SetSprite(int index, ItemAmount itemAmount)
         {
-            if (_equipInventoryCache != null) return _equipInventoryCache;
+            if (index < 0 || index >= equipmentVisuals.Count) return;
             
-            if (Managers.GameManager.Canvas != null)
+            var visualObject = equipmentVisuals[index];
+            var render = _spriteRenderers[index];
+
+            if (itemAmount.IsEmpty)
             {
-                _equipInventoryCache = Managers.GameManager.Canvas.InvManager?.EquipInventory;
+                visualObject.SetActive(false);
+                return;
             }
             
-            return _equipInventoryCache;
+            visualObject.SetActive(true);
+            
+            if (itemAmount.SoItem.Icon != null)
+            {
+                render.sprite = itemAmount.SoItem.Icon;
+            }
         }
         
-        
-        [System.Serializable]
-        public class EquipmentSlotVisuals
+        private IEnumerator InitializeEquipmentSystem()
         {
-            public EquipSlotId slotId;
-            public List<GameObject> visualObjects = new List<GameObject>();
+            while (_invSystem == null)
+            {
+                if (Managers.GameManager.Canvas != null && 
+                    Managers.GameManager.Canvas.InvManager != null)
+                {
+                    _invSystem = Managers.GameManager.Canvas.InvManager.EquipInventory;
+                    
+                    if (_invSystem != null)
+                    {
+                        _invSystem.OnItemChanged += SetSprite;
+                        yield break;
+                    }
+                }
+                yield return null;
+            }
         }
     }
 }
