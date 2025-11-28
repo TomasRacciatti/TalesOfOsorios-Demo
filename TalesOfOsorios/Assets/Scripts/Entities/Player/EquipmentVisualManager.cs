@@ -10,7 +10,8 @@ namespace Entities.Player
         [Header("Equipment Visuals Mapping")]
         [SerializeField] private List<EquipmentSlotVisuals> equipmentSlots = new List<EquipmentSlotVisuals>();
 
-        private Dictionary<EquipSlotId, List<GameObject>> slotVisualsMap;
+        private Dictionary<EquipSlotId, List<GameObject>> _slotVisualsMap;
+        private InvSystem _equipInventoryCache;
         
         private void Awake()
         {
@@ -24,53 +25,53 @@ namespace Entities.Player
                 return;
             }
 
+            _equipInventoryCache = equipInventory;
             equipInventory.OnItemChanged += OnEquipmentChanged;
 
-            for (int i = 0; i < equipInventory.Items.Count; i++)
-            {
-                OnEquipmentChanged(i, equipInventory.Items[i]);
-            }
+            RefreshAllEquipmentVisuals();
         }
         
         private void InitializeSlotVisualsMap()
         {
-            slotVisualsMap = new Dictionary<EquipSlotId, List<GameObject>>();
+            _slotVisualsMap = new Dictionary<EquipSlotId, List<GameObject>>();
 
             foreach (var slotVisual in equipmentSlots)
             {
-                if (!slotVisualsMap.ContainsKey(slotVisual.slotId))
+                if (!_slotVisualsMap.ContainsKey(slotVisual.slotId))
                 {
-                    slotVisualsMap[slotVisual.slotId] = new List<GameObject>();
+                    _slotVisualsMap[slotVisual.slotId] = new List<GameObject>();
                 }
 
-                slotVisualsMap[slotVisual.slotId].AddRange(slotVisual.visualObjects);
+                _slotVisualsMap[slotVisual.slotId].AddRange(slotVisual.visualObjects);
             }
         }
 
         private void OnEquipmentChanged(int slotIndex, ItemAmount itemAmount)
         {
-
-            EquipSlotId slotId = EquipSlotId.None;
-
-            if (itemAmount != null && !itemAmount.IsEmpty)
+            if (itemAmount == null || itemAmount.IsEmpty)
             {
-                slotId = itemAmount.SoItem.EquipSlotId;
-        
-                if (slotId != EquipSlotId.None && slotId != EquipSlotId.Potion)
-                {
-                    UpdateSlotVisuals(slotId, true);
-                }
+                RefreshAllEquipmentVisuals();
+                return;
             }
-        }
-        
-        private void UpdateSlotVisuals(EquipSlotId slotId, bool isEquipped)
-        {
-            if (!slotVisualsMap.ContainsKey(slotId))
+
+            EquipSlotId slotId = itemAmount.SoItem.EquipSlotId;
+
+            if (slotId == EquipSlotId.None || slotId == EquipSlotId.Potion)
             {
                 return;
             }
 
-            foreach (var visualObject in slotVisualsMap[slotId])
+            UpdateSlotVisuals(slotId, true);
+        }
+        
+        private void UpdateSlotVisuals(EquipSlotId slotId, bool isEquipped)
+        {
+            if (!_slotVisualsMap.ContainsKey(slotId))
+            {
+                return;
+            }
+
+            foreach (var visualObject in _slotVisualsMap[slotId])
             {
                 if (visualObject != null)
                 {
@@ -78,10 +79,10 @@ namespace Entities.Player
                 }
             }
         }
-
-        private void DisableAllEquipmentVisuals()
+        
+        private void RefreshAllEquipmentVisuals()
         {
-            foreach (var slotVisuals in slotVisualsMap.Values)
+            foreach (var slotVisuals in _slotVisualsMap.Values)
             {
                 foreach (var visualObject in slotVisuals)
                 {
@@ -91,11 +92,35 @@ namespace Entities.Player
                     }
                 }
             }
+
+            InvSystem equipInv = GetEquipInventory();
+            if (equipInv != null)
+            {
+                for (int i = 0; i < equipInv.Items.Count; i++)
+                {
+                    ItemAmount item = equipInv.Items[i];
+                    if (item != null && !item.IsEmpty)
+                    {
+                        EquipSlotId slotId = item.SoItem.EquipSlotId;
+                        if (slotId != EquipSlotId.None && slotId != EquipSlotId.Potion)
+                        {
+                            UpdateSlotVisuals(slotId, true);
+                        }
+                    }
+                }
+            }
         }
         
-        public void UnequipSlot(EquipSlotId slotId)
+        private InvSystem GetEquipInventory()
         {
-            UpdateSlotVisuals(slotId, false);
+            if (_equipInventoryCache != null) return _equipInventoryCache;
+            
+            if (Managers.GameManager.Canvas != null)
+            {
+                _equipInventoryCache = Managers.GameManager.Canvas.InvManager?.EquipInventory;
+            }
+            
+            return _equipInventoryCache;
         }
         
         
@@ -106,5 +131,4 @@ namespace Entities.Player
             public List<GameObject> visualObjects = new List<GameObject>();
         }
     }
-
 }

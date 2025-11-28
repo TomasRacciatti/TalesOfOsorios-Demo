@@ -10,11 +10,11 @@ public class InvManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Animator animator;
     
-    private bool inventoryOpen = false;
+    private bool _inventoryOpen = false;
         
     public InvSystem BaseInventory => baseInventory;
     public InvSystem EquipInventory => equipInventory;
-    public bool IsOpen => inventoryOpen;
+    public bool IsOpen => _inventoryOpen;
     
     private void Awake()
     {
@@ -23,25 +23,25 @@ public class InvManager : MonoBehaviour
     
     private void Start()
     {
-        inventoryOpen = false;
+        _inventoryOpen = false;
         animator.Play("CloseInventory", 0, 1f);
         Cursor.visible = false;
     }
     
     public void ForceInventory(bool open)
     {
-        if (inventoryOpen == open) return;
+        if (_inventoryOpen == open) return;
         ToggleInventory();
     }
 
     public bool ToggleInventory()
     {
-        inventoryOpen = !inventoryOpen;
+        _inventoryOpen = !_inventoryOpen;
         animator.speed = 1;
-        animator.Play(inventoryOpen ? "OpenInventory" : "CloseInventory", 0, 
+        animator.Play(_inventoryOpen ? "OpenInventory" : "CloseInventory", 0, 
             1 - Mathf.Clamp01(animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
         
-        if (!inventoryOpen)
+        if (!_inventoryOpen)
         {
             ItemsTooltip.Hide();
             Cursor.visible = false;
@@ -50,6 +50,6 @@ public class InvManager : MonoBehaviour
         {
             Cursor.visible = true;
         }
-        return inventoryOpen;
+        return _inventoryOpen;
     }
 }
