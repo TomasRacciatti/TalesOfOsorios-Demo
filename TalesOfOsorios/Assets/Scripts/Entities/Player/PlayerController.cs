@@ -38,9 +38,9 @@ namespace Entities.Player
 
         private void Start()
         {
-            GameManager.Resume();
             GameManager.RegisterPlayer(this);
             Instantiate(PrefabsManager.Canvas, null, false);
+            GameManager.Resume();
         }
 
         private void OnEnable()

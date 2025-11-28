@@ -15,7 +15,9 @@ public class InvManager : MonoBehaviour
     
     private void Start()
     {
-        animator.Play("CloseInventory", 0,1f);
+        inventoryOpen = false;
+        animator.Play("CloseInventory", 0, 1f);
+        Cursor.visible = false;
     }
     
     public void ForceInventory(bool open)
@@ -30,9 +32,15 @@ public class InvManager : MonoBehaviour
         animator.speed = 1;
         animator.Play(inventoryOpen ? "OpenInventory" : "CloseInventory", 0, 
             1 - Mathf.Clamp01(animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
+        
         if (!inventoryOpen)
         {
             ItemsTooltip.Hide();
+            Cursor.visible = false;
+        }
+        else
+        {
+            Cursor.visible = true;
         }
         return inventoryOpen;
     }
