@@ -9,6 +9,7 @@ namespace Items.Core
         [Header("Item")] 
         [SerializeField] private string itemName;
         [SerializeField] private Sprite icon;
+        [SerializeField] private Sprite iconSecond;
         [SerializeField, TextArea] private string description = "Item Description";
         [SerializeField, TextArea] private string summary = "Heals 20 pts";
         [SerializeField, Min(1)] private int stack = 5;
@@ -18,6 +19,7 @@ namespace Items.Core
 
         public string ItemName => itemName;
         public Sprite Icon => icon;
+        public Sprite IconSecond => iconSecond;
         public string Description => description;
         public string Summary => summary;
         public int Stack => stack;

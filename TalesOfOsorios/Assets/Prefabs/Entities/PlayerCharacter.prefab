@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4672299944161312
 Transform:
   m_ObjectHideFlags: 0
@@ -280,6 +280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4631402364940636}
   - component: {fileID: 5555353382724371574}
+  - component: {fileID: 8522638468860139805}
   - component: {fileID: 2261186020870433548}
   - component: {fileID: 5431653056602154608}
   - component: {fileID: 7238194955764300235}
@@ -347,6 +348,34 @@ CapsuleCollider2D:
   m_Offset: {x: -0.13183975, y: 0.60374665}
   m_Size: {x: 1.3455925, y: 3.574946}
   m_Direction: 0
+--- !u!114 &8522638468860139805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076146770848506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64bfada6e5db108419277b5867d1e9a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.Player.EquipmentVisualManager
+  equipmentVisuals:
+  - visualObjects:
+    - {fileID: 1632232332917980}
+    - {fileID: 1054830827934942}
+  - visualObjects:
+    - {fileID: 1638700818590348}
+  - visualObjects:
+    - {fileID: 1086126198031754}
+  - visualObjects:
+    - {fileID: 1880047488796224}
+  - visualObjects:
+    - {fileID: 1325201803980498}
+    - {fileID: 1103577492761922}
+  - visualObjects:
+    - {fileID: 1379082071848092}
+    - {fileID: 1392603193391246}
 --- !u!114 &2261186020870433548
 MonoBehaviour:
   m_ObjectHideFlags: 0

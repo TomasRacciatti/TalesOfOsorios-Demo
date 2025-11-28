@@ -10,22 +10,30 @@ namespace Entities.Player
     public class EquipmentVisualManager : MonoBehaviour
     {
         [SerializeField, Tooltip("0: Legs, 1: Waist, 2: Chest, 3; Shoulder, 4: Arms, 5: Hand")] 
-        private List<GameObject> equipmentVisuals;
+        private List<EquipmentSlot> equipmentVisuals;
         
         private InvSystem _invSystem;
-        private List<SpriteRenderer> _spriteRenderers;
+        private List<SpriteRenderer[]> _spriteRenderers;
         
         private void Awake()
         {
-            _spriteRenderers = new List<SpriteRenderer>();
+            _spriteRenderers = new List<SpriteRenderer[]>();
 
-            foreach (var go in equipmentVisuals)
+            foreach (var slot in equipmentVisuals)
             {
-                if (go == null) continue;
+                if (slot == null || slot.visualObjects == null) continue;
                 
-                var render = go.GetComponent<SpriteRenderer>();
+                SpriteRenderer[] renderers = new SpriteRenderer[slot.visualObjects.Length];
                 
-                if (render != null) _spriteRenderers.Add(render);
+                for (int i = 0; i < slot.visualObjects.Length; i++)
+                {
+                    if (slot.visualObjects[i] != null)
+                    {
+                        renderers[i] = slot.visualObjects[i].GetComponent<SpriteRenderer>();
+                    }
+                }
+                
+                _spriteRenderers.Add(renderers);
             }
         }
 
@@ -39,20 +47,31 @@ namespace Entities.Player
         {
             if (index < 0 || index >= equipmentVisuals.Count) return;
             
-            var visualObject = equipmentVisuals[index];
-            var render = _spriteRenderers[index];
+            var renderers = _spriteRenderers[index];
+            var visualObjects = equipmentVisuals[index].visualObjects;
 
             if (itemAmount.IsEmpty)
             {
-                visualObject.SetActive(false);
+                foreach (var go in visualObjects)
+                {
+                    if (go != null) go.SetActive(false);
+                }
                 return;
             }
-            
-            visualObject.SetActive(true);
-            
-            if (itemAmount.SoItem.Icon != null)
+
+            for (int i = 0; i < visualObjects.Length; i++)
             {
-                render.sprite = itemAmount.SoItem.Icon;
+                visualObjects[i].SetActive(true);
+            
+                if (i == 0 && itemAmount.SoItem.Icon != null)
+                {
+                    renderers[i].sprite = itemAmount.SoItem.Icon;
+                }
+                else if (i == 1 && itemAmount.SoItem.IconSecond != null)
+                {
+                    renderers[i].sprite = itemAmount.SoItem.IconSecond;
+                }
+                
             }
         }
         
@@ -73,6 +92,12 @@ namespace Entities.Player
                 }
                 yield return null;
             }
+        }
+        
+        [System.Serializable]
+        public class EquipmentSlot
+        {
+            public GameObject[] visualObjects = new GameObject[1];
         }
     }
 }
