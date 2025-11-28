@@ -322,7 +322,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -3511366690783246078, guid: 7abeadd86a8562844af35690ba17ba9f, type: 3}
+  m_Sprite: {fileID: 1666748049586845898, guid: 8b61e876f3968cf4e90bd9649d27d7eb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1099,6 +1099,7 @@ GameObject:
   - component: {fileID: 4779575177359878650}
   - component: {fileID: 3001637528905331679}
   - component: {fileID: 4094267044472852362}
+  - component: {fileID: 7996361081694945149}
   m_Layer: 5
   m_Name: ItemTooltip
   m_TagString: Untagged
@@ -1183,6 +1184,29 @@ MonoBehaviour:
   itemDescriptionText: {fileID: 176092089930437926}
   itemSummaryText: {fileID: 5594655819418185049}
   itemIcon: {fileID: 7456907250771544734}
+--- !u!223 &7996361081694945149
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8864243821307283933}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 15
+  m_TargetDisplay: 0
 --- !u!1001 &587752011356930793
 PrefabInstance:
   m_ObjectHideFlags: 0
