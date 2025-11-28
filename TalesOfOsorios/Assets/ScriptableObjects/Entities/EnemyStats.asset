@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6532c1aad9a46764b9d925e018cf4f3d, type: 3}
   m_Name: EnemyStats
   m_EditorClassIdentifier: Assembly-CSharp::EntityStats
-  maxHealth: 100
-  baseSpeed: 5
-  minAttackDamage: 20
-  maxAttackDamage: 30
+  maxHealth: 50
+  baseSpeed: 4
+  minAttackDamage: 10
+  maxAttackDamage: 20
