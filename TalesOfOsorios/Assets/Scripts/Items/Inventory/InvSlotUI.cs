@@ -66,11 +66,13 @@ namespace Items.Inventory
                 if (fromItem.SoItem.EquipSlotId != requiredSlotId)
                 {
                     Debug.Log($"Cannot equip {fromItem.SoItem.ItemName} in {requiredSlotId} slot");
+                    ItemDropper.Hide();
                     return;
                 }
             }
 
             ItemsTooltip.Hide();
+            ItemDropper.Hide();
 
             fromSlotUI.InvView.InventorySystem.TransferIndexToIndex(
                 InvView.InventorySystem, fromSlotUI.InvSlot, InvSlot);
