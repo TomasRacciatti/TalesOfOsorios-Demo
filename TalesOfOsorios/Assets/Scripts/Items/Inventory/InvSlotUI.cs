@@ -2,11 +2,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Items.Core;
 using Items.Inventory;
+using Managers;
 
 public class InvSlotUI : MonoBehaviour, IDropHandler
 {
-    [SerializeField] private GameObject itemUIPrefab;
-        
     private InvView invView;
     private int invSlot;
         
@@ -34,14 +33,13 @@ public class InvSlotUI : MonoBehaviour, IDropHandler
 
         if (itemUI == null)
         {
-            // Changed: Use serialized prefab reference instead of manager
-            GameObject newItem = Instantiate(itemUIPrefab, transform);
+            GameObject newItem = Instantiate(PrefabsManager.ItemPrefabUI, Vector3.zero, Quaternion.identity);
             itemUI = newItem.GetComponent<InvItemUI>();
             itemUI.SetSlotUI(this);
                 
-            RectTransform rect = newItem.GetComponent<RectTransform>();
-            rect.anchoredPosition = Vector2.zero;
-            rect.localScale = Vector3.one;
+            newItem.transform.SetParent(transform, false);
+            newItem.transform.localPosition = Vector3.zero;
+            newItem.transform.localRotation = Quaternion.identity;
         }
 
         itemUI.ShowItem(itemAmount);
@@ -49,19 +47,15 @@ public class InvSlotUI : MonoBehaviour, IDropHandler
         
     public void OnDrop(PointerEventData eventData)
     {
-        InvItemUI fromItemUI = eventData.pointerDrag?.GetComponent<InvItemUI>();
-        if (fromItemUI == null) return;
+       InvItemUI fromItemUI = eventData.pointerDrag?.GetComponent<InvItemUI>();
+            if (fromItemUI == null) return;
             
-        InvSlotUI fromSlotUI = fromItemUI.SlotUI;
-        if (fromSlotUI == null) return;
+            InvSlotUI fromSlotUI = fromItemUI.SlotUI;
+            if (fromSlotUI == null) return;
 
-        ItemsTooltip.Hide();
+            ItemsTooltip.Hide();
 
-        // Changed: Use the new transfer method
-        fromSlotUI.InvView.InventorySystem.TransferIndexToIndex(
-            InvView.InventorySystem, 
-            fromSlotUI.InvSlot, 
-            InvSlot
-        );
+            fromSlotUI.InvView.InventorySystem.TransferIndexToIndex(
+                InvView.InventorySystem, fromSlotUI.InvSlot, InvSlot);
     }
 }
