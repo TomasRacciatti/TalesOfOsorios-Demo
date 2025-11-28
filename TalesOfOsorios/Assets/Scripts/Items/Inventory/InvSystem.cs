@@ -67,15 +67,13 @@ public class InvSystem : MonoBehaviour
 
             if (slot.IsEmpty)
             {
-                int remainder = newItem.SetItem(slot);
-                items[i] = new ItemAmount(newItem.SoItem, newItem.Amount);
+                int amountToAdd = Mathf.Min(newItem.Amount, newItem.Stack);
+                items[i] = new ItemAmount(newItem.SoItem, amountToAdd);
+
+                newItem.SetAmount(newItem.Amount - amountToAdd);
 
                 OnItemChanged?.Invoke(i, items[i]);
-
-                if (items[i].Amount > 0)
-                    addedAnything = true;
-
-                newItem.SetAmount(remainder);
+                addedAnything = true;
             }
         }
 
@@ -180,5 +178,24 @@ public class InvSystem : MonoBehaviour
 
         // Swap if can't place
         Swap(toIndex, fromIndex);
+    }
+    
+    public void SetItemByIndex(int index, ItemAmount itemAmount)
+    {
+        if (index < 0 || index >= size) return;
+    
+        if (itemAmount == null || itemAmount.IsEmpty)
+        {
+            items[index] = new ItemAmount();
+        }
+        else
+        {
+            if (AcceptRule != null && !AcceptRule(itemAmount.SoItem))
+                return;
+            
+            items[index] = new ItemAmount(itemAmount);
+        }
+    
+        OnItemChanged?.Invoke(index, items[index]);
     }
 }
