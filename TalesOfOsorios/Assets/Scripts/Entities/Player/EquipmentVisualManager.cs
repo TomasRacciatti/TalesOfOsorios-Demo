@@ -15,7 +15,6 @@ namespace Entities.Player
         private void Awake()
         {
             InitializeSlotVisualsMap();
-            DisableAllEquipmentVisuals();
         }
         
         public void Initialize(InvSystem equipInventory)
@@ -50,26 +49,24 @@ namespace Entities.Player
 
         private void OnEquipmentChanged(int slotIndex, ItemAmount itemAmount)
         {
-            if (itemAmount == null || itemAmount.IsEmpty)
+
+            EquipSlotId slotId = EquipSlotId.None;
+
+            if (itemAmount != null && !itemAmount.IsEmpty)
             {
-                return;
+                slotId = itemAmount.SoItem.EquipSlotId;
+        
+                if (slotId != EquipSlotId.None && slotId != EquipSlotId.Potion)
+                {
+                    UpdateSlotVisuals(slotId, true);
+                }
             }
-
-            EquipSlotId slotId = itemAmount.SoItem.EquipSlotId;
-
-            if (slotId == EquipSlotId.None || slotId == EquipSlotId.Potion)
-            {
-                return;
-            }
-
-            UpdateSlotVisuals(slotId, !itemAmount.IsEmpty);
         }
         
         private void UpdateSlotVisuals(EquipSlotId slotId, bool isEquipped)
         {
             if (!slotVisualsMap.ContainsKey(slotId))
             {
-                Debug.LogWarning($"No visual mapping found for slot: {slotId}");
                 return;
             }
 
