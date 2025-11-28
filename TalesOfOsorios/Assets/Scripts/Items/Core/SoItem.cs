@@ -13,17 +13,13 @@ namespace Items.Core
         [SerializeField, TextArea] private string summary = "Heals 20 pts";
         [SerializeField, Min(1)] private int stack = 5;
         
-        [Header("Usage / Equipment")] 
-        [SerializeField] private bool isConsumable; 
-        [SerializeField] private bool isEquipable;
+        [Header("Usage / Equipment")]
         [SerializeField] private EquipSlotId equipSlotId;
 
         public string ItemName => itemName;
         public Sprite Icon => icon;
         public string Description => description;
         public int Stack => stack;
-        public bool IsConsumable => isConsumable;
-        public bool IsEquipable => isEquipable;
         public EquipSlotId EquipSlotId => equipSlotId;
     }
 }
