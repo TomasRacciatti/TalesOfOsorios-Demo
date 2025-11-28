@@ -22,7 +22,7 @@ public class InvSlotUI : MonoBehaviour, IDropHandler
     {
         InvItemUI itemUI = GetComponentInChildren<InvItemUI>();
             
-        if (itemAmount.IsEmpty)
+        if (itemAmount == null || itemAmount.IsEmpty)
         {
             if (itemUI != null)
             {
