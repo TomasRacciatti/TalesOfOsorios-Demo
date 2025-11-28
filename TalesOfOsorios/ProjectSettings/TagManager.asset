@@ -38,8 +38,23 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Furthest
+    uniqueID: 3666442147
+    locked: 0
+  - name: Mid
+    uniqueID: 3546840399
+    locked: 0
+  - name: Near
+    uniqueID: 2461351537
+    locked: 0
+  - name: Player
+    uniqueID: 2944151129
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Pickeables
+    uniqueID: 648540165
     locked: 0
   m_RenderingLayers:
   - Default
