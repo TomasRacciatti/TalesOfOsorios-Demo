@@ -50,12 +50,13 @@ public class InvSystem : MonoBehaviour
 
                 if (ItemsUtility.Stackable(slot, newItem))
                 {
+                    int previousAmount = newItem.Amount;
                     int remainder = slot.AddAmount(newItem.Amount);
                     newItem.SetAmount(remainder);
 
                     OnItemChanged?.Invoke(i, slot);
 
-                    if (remainder < newItem.Amount)
+                    if (remainder < previousAmount)
                         addedAnything = true;
                 }
             }
@@ -142,6 +143,17 @@ public class InvSystem : MonoBehaviour
         OnItemChanged?.Invoke(indexB, items[indexB]);
     }
     
+    public void SwapWithOtherSystem(InvSystem other, int fromIndex, int toIndex)
+    {
+        if (fromIndex < 0 || fromIndex >= size) return;
+        if (toIndex < 0 || toIndex >= other.size) return;
+        
+        (other.items[toIndex], items[fromIndex]) = (items[fromIndex], other.items[toIndex]);
+
+        other.OnItemChanged?.Invoke(toIndex, other.items[toIndex]);
+        OnItemChanged?.Invoke(fromIndex, items[fromIndex]);
+    }
+    
     public void TransferIndexToIndex(InvSystem other, int fromIndex, int toIndex)
     {
         if (fromIndex == toIndex && this == other) return;
@@ -176,8 +188,8 @@ public class InvSystem : MonoBehaviour
             return;
         }
 
-        // Swap if can't place
-        Swap(toIndex, fromIndex);
+        // Swap
+        SwapWithOtherSystem(other, fromIndex, toIndex);
     }
     
     public void SetItemByIndex(int index, ItemAmount itemAmount)
