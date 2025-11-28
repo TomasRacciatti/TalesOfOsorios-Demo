@@ -11,29 +11,30 @@ namespace Entities.Player
         [SerializeField] private PlayerEntity playerEntity;
         [SerializeField] private Transform visualTransform;
         
-        private Rigidbody2D rb;
-        private Vector2 moveInput;
-        private bool isFacingRight = false;
+        private Rigidbody2D _rb;
+        private Vector2 _moveInput;
+        private bool _isFacingRight = false;
         
-        private PlayerInput playerInput;
+        private PlayerInput _playerInput;
+        private bool _inputEnabled = true;
 
         private InteractionDetector _interactionDetector;
         
 
         private void Awake()
         {
-            playerInput = new PlayerInput();
-            playerInput.PlayerMapping.SetCallbacks(this);
+            _playerInput = new PlayerInput();
+            _playerInput.PlayerMapping.SetCallbacks(this);
             
             if (playerEntity == null)
             {
                 playerEntity = GetComponent<PlayerEntity>();
             }
             
-            rb = GetComponent<Rigidbody2D>();
+            _rb = GetComponent<Rigidbody2D>();
             _interactionDetector = GetComponent<InteractionDetector>();
             
-            if (visualTransform != null && !isFacingRight)
+            if (visualTransform != null && !_isFacingRight)
             {
                 Flip();
             }
@@ -48,12 +49,12 @@ namespace Entities.Player
 
         private void OnEnable()
         {
-            playerInput.Enable();
+            _playerInput.Enable();
         }
 
         private void OnDisable()
         {
-            playerInput.Disable();
+            _playerInput.Disable();
         }
 
         private void FixedUpdate()
@@ -78,13 +79,15 @@ namespace Entities.Player
 
         public void OnMove(InputAction.CallbackContext context)
         {
+            if (!_inputEnabled) return;
+            
             float horizontalInput = context.ReadValue<float>();
-            moveInput = new Vector2(horizontalInput, 0f);
+            _moveInput = new Vector2(horizontalInput, 0f);
         }
 
         public void OnAttack(InputAction.CallbackContext context)
         {
-            if (context.performed && !playerEntity.IsDead)
+            if (context.performed && !playerEntity.IsDead && _inputEnabled)
             {
                 playerEntity.PerformAttack();
             }
@@ -92,7 +95,7 @@ namespace Entities.Player
 
         public void OnHeavyAttack(InputAction.CallbackContext context)
         {
-            if (context.performed && !playerEntity.IsDead)
+            if (context.performed && !playerEntity.IsDead && _inputEnabled)
             {
                 playerEntity.PerformHeavyAttack();
             }
@@ -105,7 +108,7 @@ namespace Entities.Player
 
         public void OnInteract(InputAction.CallbackContext context)
         {
-            if (context.performed && !playerEntity.IsDead && _interactionDetector != null)
+            if (context.performed && !playerEntity.IsDead && _interactionDetector != null && _inputEnabled)
             {
                 _interactionDetector.TryInteract();
             }
@@ -121,19 +124,19 @@ namespace Entities.Player
 
         private void HandleMovement()
         {
-            float targetVelocityX = moveInput.x * playerEntity.CurrentSpeed;
-            rb.linearVelocity = new Vector2(targetVelocityX, rb.linearVelocity.y);
+            float targetVelocityX = _moveInput.x * playerEntity.CurrentSpeed;
+            _rb.linearVelocity = new Vector2(targetVelocityX, _rb.linearVelocity.y);
         }
 
         private void HandleFlip()
         {
             if (visualTransform == null) return;
             
-            if (moveInput.x > 0 && !isFacingRight)
+            if (_moveInput.x > 0 && !_isFacingRight)
             {
                 Flip();
             }
-            else if (moveInput.x < 0 && isFacingRight)
+            else if (_moveInput.x < 0 && _isFacingRight)
             {
                 Flip();
             }
@@ -141,7 +144,7 @@ namespace Entities.Player
 
         private void Flip()
         {
-            isFacingRight = !isFacingRight;
+            _isFacingRight = !_isFacingRight;
             
             Vector3 scale = visualTransform.localScale;
             scale.x *= -1;
@@ -150,7 +153,17 @@ namespace Entities.Player
 
         private void UpdateAnimations()
         {
-            playerEntity.UpdateMovementAnimation(moveInput.x);
+            playerEntity.UpdateMovementAnimation(_moveInput.x);
+        }
+        
+        public void DisableGameplayInput()
+        {
+            _inputEnabled = false;
+        }
+        
+        public void EnableGameplayInput()
+        {
+            _inputEnabled = true;
         }
     }
 }

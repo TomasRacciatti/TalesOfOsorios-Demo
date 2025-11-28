@@ -32,7 +32,18 @@ namespace Managers
         
         public bool ToggleInventory()
         {
-            return invManager.ToggleInventory();
+            bool isOpen = invManager.ToggleInventory();
+
+            if (isOpen)
+            {
+                GameManager.Player.DisableGameplayInput();
+            }
+            else
+            {
+                GameManager.Player.EnableGameplayInput();
+            }
+            
+            return isOpen;
         }
     }
 }
