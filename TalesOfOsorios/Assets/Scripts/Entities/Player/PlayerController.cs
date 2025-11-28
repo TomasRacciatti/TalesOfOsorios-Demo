@@ -99,7 +99,12 @@ namespace Entities.Player
         {
             // TODO: Potion logic
         }
-        
+
+        public void OnInteract(InputAction.CallbackContext context)
+        {
+            // TODO: Interact
+        }
+
         private void HandleMovement()
         {
             float targetVelocityX = moveInput.x * playerEntity.CurrentSpeed;
