@@ -45,9 +45,8 @@ namespace Items.Inventory
         }
 
         private void Update()
-        {
-            if (gameObject.activeSelf)
-                UpdatePosition();
+        { 
+            UpdatePosition();
         }
         
         private void UpdatePosition()
