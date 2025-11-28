@@ -20,15 +20,6 @@ namespace Items.Inventory
         {
             invView = inventoryView;
             invSlot = inventorySlot;
-            
-            if (requiredSlotId != EquipSlotId.None && invView?.InventorySystem != null)
-            {
-                invView.InventorySystem.AcceptRule = (soItem) =>
-                {
-                    if (soItem == null) return false;
-                    return soItem.EquipSlotId == requiredSlotId;
-                };
-            }
         }
 
         public void SetItem(ItemAmount itemAmount)
@@ -66,6 +57,18 @@ namespace Items.Inventory
 
             InvSlotUI fromSlotUI = fromItemUI.SlotUI;
             if (fromSlotUI == null) return;
+
+            if (requiredSlotId != EquipSlotId.None)
+            {
+                ItemAmount fromItem = fromItemUI.ItemAmount;
+                if (fromItem == null || fromItem.IsEmpty) return;
+                
+                if (fromItem.SoItem.EquipSlotId != requiredSlotId)
+                {
+                    Debug.Log($"Cannot equip {fromItem.SoItem.ItemName} in {requiredSlotId} slot");
+                    return;
+                }
+            }
 
             ItemsTooltip.Hide();
 
