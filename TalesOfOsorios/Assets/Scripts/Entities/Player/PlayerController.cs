@@ -1,11 +1,10 @@
-using System;
-using Unity.VisualScripting;
+using Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Entities.Player
 {
-    [RequireComponent(typeof(Rigidbody2D), typeof(PlayerEntity))]
+    [RequireComponent(typeof(Rigidbody2D), typeof(PlayerEntity), typeof(InteractionDetector))]
     public class PlayerController : MonoBehaviour, PlayerInput.IPlayerMappingActions
     {
         [Header("References")]
@@ -17,6 +16,8 @@ namespace Entities.Player
         private bool isFacingRight = false;
         
         private PlayerInput playerInput;
+
+        private InteractionDetector _interactionDetector;
         
 
         private void Awake()
@@ -30,11 +31,19 @@ namespace Entities.Player
             }
             
             rb = GetComponent<Rigidbody2D>();
+            _interactionDetector = GetComponent<InteractionDetector>();
             
             if (visualTransform != null && !isFacingRight)
             {
                 Flip();
             }
+        }
+
+        private void Start()
+        {
+            GameManager.RegisterPlayer(this);
+            Instantiate(PrefabsManager.Canvas, null, false);
+            GameManager.Resume();
         }
 
         private void OnEnable()
@@ -93,7 +102,23 @@ namespace Entities.Player
         {
             // TODO: Potion logic
         }
-        
+
+        public void OnInteract(InputAction.CallbackContext context)
+        {
+            if (context.performed && !playerEntity.IsDead && _interactionDetector != null)
+            {
+                _interactionDetector.TryInteract();
+            }
+        }
+
+        public void OnInventory(InputAction.CallbackContext context)
+        {
+            if (context.performed && GameManager.Canvas != null)
+            {
+                bool isOpen = GameManager.Canvas.ToggleInventory();
+            }
+        }
+
         private void HandleMovement()
         {
             float targetVelocityX = moveInput.x * playerEntity.CurrentSpeed;

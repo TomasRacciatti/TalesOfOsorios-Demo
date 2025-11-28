@@ -136,6 +136,24 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""9a596742-5ce6-4d7e-a773-70b386260677"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""998ffb5a-8542-4bb9-82f2-298ae621e61e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -215,6 +233,28 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""UsePotion"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e1ec55ad-930e-4363-8df6-8d483f2dc63c"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""17704106-d90c-477f-9735-0241f6fdb3c5"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -228,6 +268,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_PlayerMapping_Attack = m_PlayerMapping.FindAction("Attack", throwIfNotFound: true);
         m_PlayerMapping_HeavyAttack = m_PlayerMapping.FindAction("HeavyAttack", throwIfNotFound: true);
         m_PlayerMapping_UsePotion = m_PlayerMapping.FindAction("UsePotion", throwIfNotFound: true);
+        m_PlayerMapping_Interact = m_PlayerMapping.FindAction("Interact", throwIfNotFound: true);
+        m_PlayerMapping_Inventory = m_PlayerMapping.FindAction("Inventory", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -313,6 +355,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMapping_Attack;
     private readonly InputAction m_PlayerMapping_HeavyAttack;
     private readonly InputAction m_PlayerMapping_UsePotion;
+    private readonly InputAction m_PlayerMapping_Interact;
+    private readonly InputAction m_PlayerMapping_Inventory;
     /// <summary>
     /// Provides access to input actions defined in input action map "PlayerMapping".
     /// </summary>
@@ -344,6 +388,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "PlayerMapping/UsePotion".
         /// </summary>
         public InputAction @UsePotion => m_Wrapper.m_PlayerMapping_UsePotion;
+        /// <summary>
+        /// Provides access to the underlying input action "PlayerMapping/Interact".
+        /// </summary>
+        public InputAction @Interact => m_Wrapper.m_PlayerMapping_Interact;
+        /// <summary>
+        /// Provides access to the underlying input action "PlayerMapping/Inventory".
+        /// </summary>
+        public InputAction @Inventory => m_Wrapper.m_PlayerMapping_Inventory;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -385,6 +437,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @UsePotion.started += instance.OnUsePotion;
             @UsePotion.performed += instance.OnUsePotion;
             @UsePotion.canceled += instance.OnUsePotion;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
+            @Inventory.started += instance.OnInventory;
+            @Inventory.performed += instance.OnInventory;
+            @Inventory.canceled += instance.OnInventory;
         }
 
         /// <summary>
@@ -411,6 +469,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @UsePotion.started -= instance.OnUsePotion;
             @UsePotion.performed -= instance.OnUsePotion;
             @UsePotion.canceled -= instance.OnUsePotion;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
+            @Inventory.started -= instance.OnInventory;
+            @Inventory.performed -= instance.OnInventory;
+            @Inventory.canceled -= instance.OnInventory;
         }
 
         /// <summary>
@@ -486,5 +550,19 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnUsePotion(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Interact" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnInteract(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Inventory" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnInventory(InputAction.CallbackContext context);
     }
 }

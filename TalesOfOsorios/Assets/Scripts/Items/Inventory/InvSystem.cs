@@ -1,0 +1,211 @@
+using System;
+using System.Collections.Generic;
+using Items.Core;
+using UnityEngine;
+
+public class InvSystem : MonoBehaviour
+{
+    [SerializeField] private int size = 10;
+    [SerializeField] private bool allowStacking = true;
+
+    [SerializeField] private List<ItemAmount> items = new List<ItemAmount>();
+    
+    public Func<SoItem, bool> AcceptRule;
+
+    public int Size => size;
+    public bool AllowStacking => allowStacking;
+
+    public IReadOnlyList<ItemAmount> Items => items;
+
+    public event Action<int, ItemAmount> OnItemChanged;
+
+    private void Awake()
+    {
+        items ??= new List<ItemAmount>();
+        while (items.Count < size)
+            items.Add(new ItemAmount());
+    }
+    
+    public bool AddItem(ref ItemAmount newItem)
+    {
+        if (newItem == null || newItem.IsEmpty)
+            return false;
+        
+        if (AcceptRule != null && !AcceptRule(newItem.SoItem))
+            return false;
+
+        bool addedAnything = false;
+
+
+        if (allowStacking)
+        {
+            for (int i = 0; i < size && !newItem.IsEmpty; i++)
+            {
+                ItemAmount slot = items[i];
+
+                if (slot.IsEmpty) 
+                    continue;
+
+                if (ItemsUtility.Stackable(slot, newItem))
+                {
+                    int previousAmount = newItem.Amount;
+                    int remainder = slot.AddAmount(newItem.Amount);
+                    newItem.SetAmount(remainder);
+
+                    OnItemChanged?.Invoke(i, slot);
+
+                    if (remainder < previousAmount)
+                        addedAnything = true;
+                }
+            }
+        }
+        
+        for (int i = 0; i < size && !newItem.IsEmpty; i++)
+        {
+            ItemAmount slot = items[i];
+
+            if (slot.IsEmpty)
+            {
+                int amountToAdd = Mathf.Min(newItem.Amount, newItem.Stack);
+                items[i] = new ItemAmount(newItem.SoItem, amountToAdd);
+
+                newItem.SetAmount(newItem.Amount - amountToAdd);
+
+                OnItemChanged?.Invoke(i, items[i]);
+                addedAnything = true;
+            }
+        }
+
+        return addedAnything;
+    }
+    
+    public bool RemoveItem(SoItem soItem, int amount)
+    {
+        if (soItem == null || amount <= 0) return false;
+
+        int remaining = amount;
+
+        for (int i = 0; i < size && remaining > 0; i++)
+        {
+            ItemAmount slot = items[i];
+
+            if (slot.SoItem != soItem)
+                continue;
+
+            int before = remaining;
+            remaining = slot.RemoveAmount(remaining);
+
+            OnItemChanged?.Invoke(i, slot);
+            
+            if (slot.IsEmpty)
+                items[i] = new ItemAmount();
+        }
+
+        return remaining == 0;
+    }
+    
+    public void RemoveItem(ref ItemAmount itemAmount)
+    {
+        if (itemAmount == null || itemAmount.IsEmpty) return;
+
+        int remaining = itemAmount.Amount;
+
+        for (int i = 0; i < size && remaining > 0; i++)
+        {
+            ItemAmount slot = items[i];
+
+            if (slot.IsEmpty || slot.SoItem != itemAmount.SoItem) 
+                continue;
+
+            int before = remaining;
+            remaining = slot.RemoveAmount(remaining);
+
+            OnItemChanged?.Invoke(i, slot);
+
+            if (slot.IsEmpty)
+                items[i] = new ItemAmount();
+        }
+        
+        itemAmount.SetAmount(remaining);
+    }
+    
+    public void Swap(int indexA, int indexB)
+    {
+        if (indexA == indexB) return;
+        if (indexA < 0 || indexA >= size) return;
+        if (indexB < 0 || indexB >= size) return;
+
+        (items[indexA], items[indexB]) = (items[indexB], items[indexA]);
+
+        OnItemChanged?.Invoke(indexA, items[indexA]);
+        OnItemChanged?.Invoke(indexB, items[indexB]);
+    }
+    
+    public void SwapWithOtherSystem(InvSystem other, int fromIndex, int toIndex)
+    {
+        if (fromIndex < 0 || fromIndex >= size) return;
+        if (toIndex < 0 || toIndex >= other.size) return;
+        
+        (other.items[toIndex], items[fromIndex]) = (items[fromIndex], other.items[toIndex]);
+
+        other.OnItemChanged?.Invoke(toIndex, other.items[toIndex]);
+        OnItemChanged?.Invoke(fromIndex, items[fromIndex]);
+    }
+    
+    public void TransferIndexToIndex(InvSystem other, int fromIndex, int toIndex)
+    {
+        if (fromIndex == toIndex && this == other) return;
+
+        if (fromIndex < 0 || fromIndex >= size) return;
+        if (toIndex < 0 || toIndex >= other.size) return;
+
+        ItemAmount from = items[fromIndex];
+        if (from.IsEmpty) return;
+        
+        if (other.AcceptRule != null && !other.AcceptRule(from.SoItem))
+            return;
+
+        ItemAmount to = other.items[toIndex];
+
+        bool canStack =
+            other.allowStacking &&
+            !to.IsEmpty &&
+            ItemsUtility.Stackable(to, from);
+
+        if (canStack)
+        {
+            int remainder = to.AddAmount(from.Amount);
+            from.SetAmount(remainder);
+
+            other.OnItemChanged?.Invoke(toIndex, to);
+            OnItemChanged?.Invoke(fromIndex, from);
+
+            if (from.IsEmpty)
+                items[fromIndex] = new ItemAmount();
+
+            return;
+        }
+
+        // Swap
+        SwapWithOtherSystem(other, fromIndex, toIndex);
+    }
+    
+    public void SetItemByIndex(int index, ItemAmount itemAmount)
+    {
+        if (index < 0 || index >= size) return;
+    
+        if (itemAmount == null || itemAmount.IsEmpty)
+        {
+            items[index] = new ItemAmount();
+        }
+        else
+        {
+            if (AcceptRule != null && !AcceptRule(itemAmount.SoItem))
+                return;
+            
+            items[index] = new ItemAmount(itemAmount);
+        }
+    
+        OnItemChanged?.Invoke(index, items[index]);
+    }
+}
