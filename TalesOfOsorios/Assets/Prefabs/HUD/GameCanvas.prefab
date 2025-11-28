@@ -221,9 +221,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7838856384149471434}
   - component: {fileID: 7565385580484082162}
+  - component: {fileID: 8155121618984413544}
+  - component: {fileID: 7410344394963722790}
   - component: {fileID: 1460074917061047860}
   - component: {fileID: 2542828462102499305}
-  - component: {fileID: 7410344394963722790}
   m_Layer: 5
   m_Name: BaseInventory
   m_TagString: Untagged
@@ -265,6 +266,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1761980688369965900}
   m_CullTransparentMesh: 1
+--- !u!114 &8155121618984413544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761980688369965900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d6d726ff2505d643b49d289ac5d8194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InvSystem
+  size: 7
+  allowStacking: 1
+  items: []
+--- !u!114 &7410344394963722790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761980688369965900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da31f1f1857d5864cac59f11f040d64d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InvView
+  slots:
+  - {fileID: 1861613530240032742}
+  - {fileID: 144899184286422970}
+  - {fileID: 5168845739114034210}
+  - {fileID: 5582723279571098261}
+  - {fileID: 2441875372690505205}
+  - {fileID: 470557920857050657}
+  - {fileID: 1619880144996788158}
+  inventorySystem: {fileID: 8155121618984413544}
 --- !u!114 &1460074917061047860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,27 +358,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &7410344394963722790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1761980688369965900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da31f1f1857d5864cac59f11f040d64d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InvView
-  slots:
-  - {fileID: 1861613530240032742}
-  - {fileID: 144899184286422970}
-  - {fileID: 5168845739114034210}
-  - {fileID: 5582723279571098261}
-  - {fileID: 2441875372690505205}
-  - {fileID: 470557920857050657}
-  - {fileID: 1619880144996788158}
-  inventorySystem: {fileID: 0}
 --- !u!1 &2748894145790233948
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,6 +680,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a35a11c35fa58054083be3db63cb0014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InvManager
+  baseInventory: {fileID: 8155121618984413544}
+  equipInventory: {fileID: 1952357655791510602}
   animator: {fileID: 5541965114360519340}
 --- !u!1 &5490415204893288213
 GameObject:
@@ -677,6 +695,7 @@ GameObject:
   - component: {fileID: 8049057560562381886}
   - component: {fileID: 3039360948205860317}
   - component: {fileID: 4498891900256916126}
+  - component: {fileID: 1952357655791510602}
   - component: {fileID: 8005745329599640769}
   m_Layer: 5
   m_Name: EquipInventory
@@ -769,7 +788,22 @@ MonoBehaviour:
   - {fileID: 7103204683553936860}
   - {fileID: 8214055110068587564}
   - {fileID: 991639935724326124}
-  inventorySystem: {fileID: 0}
+  inventorySystem: {fileID: 1952357655791510602}
+--- !u!114 &1952357655791510602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5490415204893288213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d6d726ff2505d643b49d289ac5d8194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InvSystem
+  size: 7
+  allowStacking: 0
+  items: []
 --- !u!225 &8005745329599640769
 CanvasGroup:
   m_ObjectHideFlags: 0

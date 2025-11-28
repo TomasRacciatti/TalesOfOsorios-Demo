@@ -3,9 +3,17 @@ using Items.Inventory;
 
 public class InvManager : MonoBehaviour
 {
+    [Header("Inventory Systems")]
+    [SerializeField] private InvSystem baseInventory;
+    [SerializeField] private InvSystem equipInventory;
+    
+    [Header("UI")]
     [SerializeField] private Animator animator;
+    
     private bool inventoryOpen = false;
         
+    public InvSystem BaseInventory => baseInventory;
+    public InvSystem EquipInventory => equipInventory;
     public bool IsOpen => inventoryOpen;
     
     private void Awake()

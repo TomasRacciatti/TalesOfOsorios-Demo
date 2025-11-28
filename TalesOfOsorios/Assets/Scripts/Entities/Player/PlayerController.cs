@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace Entities.Player
 {
-    [RequireComponent(typeof(Rigidbody2D), typeof(PlayerEntity))]
+    [RequireComponent(typeof(Rigidbody2D), typeof(PlayerEntity), typeof(InteractionDetector))]
     public class PlayerController : MonoBehaviour, PlayerInput.IPlayerMappingActions
     {
         [Header("References")]
@@ -16,6 +16,8 @@ namespace Entities.Player
         private bool isFacingRight = false;
         
         private PlayerInput playerInput;
+
+        private InteractionDetector _interactionDetector;
         
 
         private void Awake()
@@ -29,6 +31,7 @@ namespace Entities.Player
             }
             
             rb = GetComponent<Rigidbody2D>();
+            _interactionDetector = GetComponent<InteractionDetector>();
             
             if (visualTransform != null && !isFacingRight)
             {
@@ -102,7 +105,10 @@ namespace Entities.Player
 
         public void OnInteract(InputAction.CallbackContext context)
         {
-            // TODO: Interact
+            if (context.performed && !playerEntity.IsDead && _interactionDetector != null)
+            {
+                _interactionDetector.TryInteract();
+            }
         }
 
         public void OnInventory(InputAction.CallbackContext context)

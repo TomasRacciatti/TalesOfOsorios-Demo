@@ -7,7 +7,6 @@ public class InvSystem : MonoBehaviour
 {
     [SerializeField] private int size = 10;
     [SerializeField] private bool allowStacking = true;
-    [SerializeField] private bool canGrab = true;
 
     [SerializeField] private List<ItemAmount> items = new List<ItemAmount>();
     
@@ -15,7 +14,6 @@ public class InvSystem : MonoBehaviour
 
     public int Size => size;
     public bool AllowStacking => allowStacking;
-    public bool CanGrab => canGrab;
 
     public IReadOnlyList<ItemAmount> Items => items;
 

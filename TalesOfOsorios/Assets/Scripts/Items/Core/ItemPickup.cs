@@ -1,8 +1,10 @@
+using Interfaces;
 using UnityEngine;
+using Managers;
 
 namespace Items.Core
 {
-    public class ItemPickup : MonoBehaviour
+    public class ItemPickup : MonoBehaviour, IInteractable
     {
         [SerializeField] private ItemAmount itemAmount;
         [SerializeField] private SpriteRenderer spriteRenderer;
@@ -28,6 +30,18 @@ namespace Items.Core
             {
                 spriteRenderer.sprite = itemAmount.SoItem.Icon;
             }
+        }
+
+        public void Interact()
+        {
+            InvSystem baseInventory = GameManager.Canvas.InvManager.BaseInventory;
+
+            TryPickup(baseInventory);
+        }
+        
+        public bool CanInteract()
+        {
+            return !itemAmount.IsEmpty;
         }
         
         public void TryPickup(InvSystem playerInventory)
