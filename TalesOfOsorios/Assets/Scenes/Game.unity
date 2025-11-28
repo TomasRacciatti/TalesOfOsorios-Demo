@@ -1460,8 +1460,8 @@ MonoBehaviour:
   player: {fileID: 1076146770848506, guid: e401b93f8d618fb43b67f19b68229e3c, type: 3}
   canvas: {fileID: 5861235518287577428, guid: f30d780d616108546b048021e911063b, type: 3}
   itemPrefabPickup: {fileID: 1745276372394913145, guid: a5fa17644acb0194aa305f53800a7c59, type: 3}
-  itemPrefabUI: {fileID: 8452809894664466301, guid: 6d0c52a4ba42f0240b8b0de0c81aaa75, type: 3}
-  slotPrefabUI: {fileID: 8452809894664466301, guid: 51f979ed5229e2543ad55ac735b6943d, type: 3}
+  itemPrefabUI: {fileID: 3852094172389186998, guid: 6d0c52a4ba42f0240b8b0de0c81aaa75, type: 3}
+  slotPrefabUI: {fileID: 4260937506889647640, guid: b3960b49192d74240889428f871f9ac9, type: 3}
 --- !u!1 &1384272012
 GameObject:
   m_ObjectHideFlags: 0
