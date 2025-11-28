@@ -794,6 +794,7 @@ GameObject:
   - component: {fileID: 4230995744934221717}
   - component: {fileID: 2532342434699555548}
   - component: {fileID: 250671485882740070}
+  - component: {fileID: 4824121054340745140}
   m_Layer: 5
   m_Name: GameCanvas
   m_TagString: Untagged
@@ -885,6 +886,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4824121054340745140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5861235518287577428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87465ae90b6cbe44e8d019c43d0b8cde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Managers.CanvasManager
+  invManager: {fileID: 8593441089575455424}
 --- !u!1 &8124101504469083198
 GameObject:
   m_ObjectHideFlags: 0
