@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37907135925854241942d9c041b94fef, type: 3}
+  m_Script: {fileID: 11500000, guid: 3bd253c601f2c654aaa4bd9a5846b8b8, type: 3}
   m_Name: Leather_Armor
-  m_EditorClassIdentifier: Assembly-CSharp::Items.Core.SoItem
+  m_EditorClassIdentifier: Assembly-CSharp::Items.Core.SoEquipment
   itemName: Leather Armor
   icon: {fileID: 21300000, guid: 5610271362c08b240b4e1abf9a5b612b, type: 3}
+  iconSecond: {fileID: 0}
   description: Chest armor made out of leather
-  summary: Armor up 5pts
+  summary: Armor up 5 pts
   stack: 1
   equipSlotId: 2
+  armor: 5
