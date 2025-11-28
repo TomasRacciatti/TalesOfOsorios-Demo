@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Leather_Short
   m_EditorClassIdentifier: Assembly-CSharp::Items.Core.SoItem
   itemName: Leather Shorts
-  icon: {fileID: -3965660968130455405, guid: ae928620621826142a65e691207d4f92, type: 3}
+  icon: {fileID: 21300000, guid: 1b13a2bc7aa87704d88d9478ff9ca426, type: 3}
   description: A waist mail made of leather
   summary: Armor up 3pts
   stack: 1
-  equipSlotId: 1
+  equipSlotId: 3

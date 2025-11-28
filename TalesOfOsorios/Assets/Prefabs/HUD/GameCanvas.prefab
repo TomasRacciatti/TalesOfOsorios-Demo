@@ -1223,48 +1223,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: SlotUI Shoulder
       objectReference: {fileID: 0}
-    - target: {fileID: 4260937506889647640, guid: b3960b49192d74240889428f871f9ac9, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 7690945647447119669, guid: b3960b49192d74240889428f871f9ac9, type: 3}
+      propertyPath: requiredSlotId
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4260937506889647640, guid: b3960b49192d74240889428f871f9ac9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3119662207069657804}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3960b49192d74240889428f871f9ac9, type: 3}
 --- !u!224 &3595448418948483051 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4165130497042253058, guid: b3960b49192d74240889428f871f9ac9, type: 3}
   m_PrefabInstance: {fileID: 587752011356930793}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3677744629647164657 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4260937506889647640, guid: b3960b49192d74240889428f871f9ac9, type: 3}
-  m_PrefabInstance: {fileID: 587752011356930793}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3119662207069657804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3677744629647164657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a4133c0b0edb79488c0eaa1aded99dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Items.Inventory.EquipInventoryBinder
-  equipSystem: {fileID: 0}
-  slotId: 6
 --- !u!114 &7103204683553936860 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7690945647447119669, guid: b3960b49192d74240889428f871f9ac9, type: 3}
   m_PrefabInstance: {fileID: 587752011356930793}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3677744629647164657}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2067aabb4f538a4b8689c9e38382073, type: 3}
@@ -1362,37 +1340,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: SlotUI Arms
       objectReference: {fileID: 0}
-    - target: {fileID: 4260937506889647640, guid: b3960b49192d74240889428f871f9ac9, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 7690945647447119669, guid: b3960b49192d74240889428f871f9ac9, type: 3}
+      propertyPath: requiredSlotId
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4260937506889647640, guid: b3960b49192d74240889428f871f9ac9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3231746990311243784}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3960b49192d74240889428f871f9ac9, type: 3}
---- !u!1 &2334115702559546625 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4260937506889647640, guid: b3960b49192d74240889428f871f9ac9, type: 3}
-  m_PrefabInstance: {fileID: 1965141512332434201}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3231746990311243784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2334115702559546625}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a4133c0b0edb79488c0eaa1aded99dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Items.Inventory.EquipInventoryBinder
-  equipSystem: {fileID: 0}
-  slotId: 4
 --- !u!224 &2488258403477708315 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4165130497042253058, guid: b3960b49192d74240889428f871f9ac9, type: 3}
@@ -1403,7 +1359,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7690945647447119669, guid: b3960b49192d74240889428f871f9ac9, type: 3}
   m_PrefabInstance: {fileID: 1965141512332434201}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2334115702559546625}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2067aabb4f538a4b8689c9e38382073, type: 3}
@@ -1501,48 +1457,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: SlotUILeg
       objectReference: {fileID: 0}
-    - target: {fileID: 4260937506889647640, guid: b3960b49192d74240889428f871f9ac9, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 7690945647447119669, guid: b3960b49192d74240889428f871f9ac9, type: 3}
+      propertyPath: requiredSlotId
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4260937506889647640, guid: b3960b49192d74240889428f871f9ac9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3032668567044039659}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3960b49192d74240889428f871f9ac9, type: 3}
 --- !u!224 &2121771406479736252 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4165130497042253058, guid: b3960b49192d74240889428f871f9ac9, type: 3}
   m_PrefabInstance: {fileID: 2647993181225334974}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2278377013513060006 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4260937506889647640, guid: b3960b49192d74240889428f871f9ac9, type: 3}
-  m_PrefabInstance: {fileID: 2647993181225334974}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3032668567044039659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2278377013513060006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a4133c0b0edb79488c0eaa1aded99dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Items.Inventory.EquipInventoryBinder
-  equipSystem: {fileID: 0}
-  slotId: 7
 --- !u!114 &5621677151624081291 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7690945647447119669, guid: b3960b49192d74240889428f871f9ac9, type: 3}
   m_PrefabInstance: {fileID: 2647993181225334974}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2278377013513060006}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2067aabb4f538a4b8689c9e38382073, type: 3}
@@ -1866,48 +1800,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: SlotUI Waist
       objectReference: {fileID: 0}
-    - target: {fileID: 4260937506889647640, guid: b3960b49192d74240889428f871f9ac9, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 7690945647447119669, guid: b3960b49192d74240889428f871f9ac9, type: 3}
+      propertyPath: requiredSlotId
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4260937506889647640, guid: b3960b49192d74240889428f871f9ac9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5902732585354965843}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3960b49192d74240889428f871f9ac9, type: 3}
 --- !u!224 &683560613323572456 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4165130497042253058, guid: b3960b49192d74240889428f871f9ac9, type: 3}
   m_PrefabInstance: {fileID: 3508861420731105770}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &833199781186357234 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4260937506889647640, guid: b3960b49192d74240889428f871f9ac9, type: 3}
-  m_PrefabInstance: {fileID: 3508861420731105770}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5902732585354965843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 833199781186357234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a4133c0b0edb79488c0eaa1aded99dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Items.Inventory.EquipInventoryBinder
-  equipSystem: {fileID: 0}
-  slotId: 3
 --- !u!114 &6488069193725646559 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7690945647447119669, guid: b3960b49192d74240889428f871f9ac9, type: 3}
   m_PrefabInstance: {fileID: 3508861420731105770}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 833199781186357234}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2067aabb4f538a4b8689c9e38382073, type: 3}
@@ -2118,24 +2030,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: SlotUI Chest
       objectReference: {fileID: 0}
-    - target: {fileID: 4260937506889647640, guid: b3960b49192d74240889428f871f9ac9, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 7690945647447119669, guid: b3960b49192d74240889428f871f9ac9, type: 3}
+      propertyPath: requiredSlotId
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4260937506889647640, guid: b3960b49192d74240889428f871f9ac9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5212814437479892774}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3960b49192d74240889428f871f9ac9, type: 3}
 --- !u!114 &2766009828904827201 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7690945647447119669, guid: b3960b49192d74240889428f871f9ac9, type: 3}
   m_PrefabInstance: {fileID: 5537577174056332916}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8644810186478561388}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2067aabb4f538a4b8689c9e38382073, type: 3}
@@ -2146,25 +2055,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4165130497042253058, guid: b3960b49192d74240889428f871f9ac9, type: 3}
   m_PrefabInstance: {fileID: 5537577174056332916}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8644810186478561388 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4260937506889647640, guid: b3960b49192d74240889428f871f9ac9, type: 3}
-  m_PrefabInstance: {fileID: 5537577174056332916}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5212814437479892774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8644810186478561388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a4133c0b0edb79488c0eaa1aded99dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Items.Inventory.EquipInventoryBinder
-  equipSystem: {fileID: 0}
-  slotId: 2
 --- !u!1001 &5818827999399871022
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2257,24 +2147,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: SlotUI Belt
       objectReference: {fileID: 0}
-    - target: {fileID: 4260937506889647640, guid: b3960b49192d74240889428f871f9ac9, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 7690945647447119669, guid: b3960b49192d74240889428f871f9ac9, type: 3}
+      propertyPath: requiredSlotId
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4260937506889647640, guid: b3960b49192d74240889428f871f9ac9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3958542212878523727}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3960b49192d74240889428f871f9ac9, type: 3}
 --- !u!114 &4213992031564829979 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7690945647447119669, guid: b3960b49192d74240889428f871f9ac9, type: 3}
   m_PrefabInstance: {fileID: 5818827999399871022}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7773570479131477046}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2067aabb4f538a4b8689c9e38382073, type: 3}
@@ -2285,25 +2172,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4165130497042253058, guid: b3960b49192d74240889428f871f9ac9, type: 3}
   m_PrefabInstance: {fileID: 5818827999399871022}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7773570479131477046 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4260937506889647640, guid: b3960b49192d74240889428f871f9ac9, type: 3}
-  m_PrefabInstance: {fileID: 5818827999399871022}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3958542212878523727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7773570479131477046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a4133c0b0edb79488c0eaa1aded99dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Items.Inventory.EquipInventoryBinder
-  equipSystem: {fileID: 0}
-  slotId: 1
 --- !u!1001 &7455912686834719705
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2396,48 +2264,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: SlotUI Hands
       objectReference: {fileID: 0}
-    - target: {fileID: 4260937506889647640, guid: b3960b49192d74240889428f871f9ac9, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 7690945647447119669, guid: b3960b49192d74240889428f871f9ac9, type: 3}
+      propertyPath: requiredSlotId
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4260937506889647640, guid: b3960b49192d74240889428f871f9ac9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5419268674867895065}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3960b49192d74240889428f871f9ac9, type: 3}
 --- !u!114 &991639935724326124 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7690945647447119669, guid: b3960b49192d74240889428f871f9ac9, type: 3}
   m_PrefabInstance: {fileID: 7455912686834719705}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6654452194757533121}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2067aabb4f538a4b8689c9e38382073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &6654452194757533121 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4260937506889647640, guid: b3960b49192d74240889428f871f9ac9, type: 3}
-  m_PrefabInstance: {fileID: 7455912686834719705}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5419268674867895065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6654452194757533121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a4133c0b0edb79488c0eaa1aded99dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Items.Inventory.EquipInventoryBinder
-  equipSystem: {fileID: 0}
-  slotId: 5
 --- !u!224 &6824427929418931931 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4165130497042253058, guid: b3960b49192d74240889428f871f9ac9, type: 3}

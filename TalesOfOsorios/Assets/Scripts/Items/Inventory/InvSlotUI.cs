@@ -7,16 +7,28 @@ namespace Items.Inventory
 {
     public class InvSlotUI : MonoBehaviour, IDropHandler
     {
+        [SerializeField] private EquipSlotId requiredSlotId = EquipSlotId.None;
+        
         private InvView invView;
         private int invSlot;
 
         public InvView InvView => invView;
         public int InvSlot => invSlot;
+        public EquipSlotId RequiredSlotId => requiredSlotId;
 
         public void Initialize(InvView inventoryView, int inventorySlot)
         {
             invView = inventoryView;
             invSlot = inventorySlot;
+            
+            if (requiredSlotId != EquipSlotId.None && invView?.InventorySystem != null)
+            {
+                invView.InventorySystem.AcceptRule = (soItem) =>
+                {
+                    if (soItem == null) return false;
+                    return soItem.EquipSlotId == requiredSlotId;
+                };
+            }
         }
 
         public void SetItem(ItemAmount itemAmount)
@@ -60,5 +72,17 @@ namespace Items.Inventory
             fromSlotUI.InvView.InventorySystem.TransferIndexToIndex(
                 InvView.InventorySystem, fromSlotUI.InvSlot, InvSlot);
         }
+    }
+    
+    public enum EquipSlotId
+    {
+        None,
+        Potion,
+        Chest,
+        Waist,
+        Arms,
+        Hands,
+        Shoulder,
+        Legs
     }
 }
