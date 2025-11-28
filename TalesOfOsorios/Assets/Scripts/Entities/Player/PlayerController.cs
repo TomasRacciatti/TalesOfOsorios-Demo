@@ -1,5 +1,4 @@
-using System;
-using Unity.VisualScripting;
+using Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -35,6 +34,13 @@ namespace Entities.Player
             {
                 Flip();
             }
+        }
+
+        private void Start()
+        {
+            GameManager.Resume();
+            GameManager.RegisterPlayer(this);
+            Instantiate(PrefabsManager.Canvas, null, false);
         }
 
         private void OnEnable()
