@@ -25,14 +25,12 @@ namespace Managers
         public static void Pause()
         {
             Time.timeScale = 0f;
-            Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
     
         public static void Resume()
         {
             Time.timeScale = 1f;
-            Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
     }
