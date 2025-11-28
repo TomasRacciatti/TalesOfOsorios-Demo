@@ -15,7 +15,8 @@ namespace Items.Inventory
                 if (soItem == null)
                     return false;
 
-                return soItem.EquipSlotId == slotId;
+                return soItem.EquipSlotId != EquipSlotId.None
+                       && soItem.EquipSlotId == slotId;
             };
         }
     }
