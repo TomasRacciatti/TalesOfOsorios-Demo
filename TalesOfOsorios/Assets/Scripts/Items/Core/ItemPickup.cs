@@ -6,7 +6,7 @@ namespace Items.Core
     {
         [SerializeField] private ItemAmount itemAmount;
         [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private float pickupRadius = 1.5f;
+        //[SerializeField] private float pickupRadius = 1.5f;
         
         public ItemAmount ItemAmount => itemAmount;
 
