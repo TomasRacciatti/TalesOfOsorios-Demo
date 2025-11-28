@@ -24,6 +24,7 @@ namespace Items.Inventory
     public enum EquipSlotId
     {
         None,
+        Potion,
         Chest,
         Waist,
         Arms,
