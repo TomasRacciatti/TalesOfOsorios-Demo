@@ -9,7 +9,8 @@ namespace Entities.Player
 {
     public class EquipmentVisualManager : MonoBehaviour
     {
-        [SerializeField] private List<GameObject> equipmentVisuals;
+        [SerializeField, Tooltip("0: Legs, 1: Waist, 2: Chest, 3; Shoulder, 4: Arms, 5: Hand")] 
+        private List<GameObject> equipmentVisuals;
         
         private InvSystem _invSystem;
         private List<SpriteRenderer> _spriteRenderers;
