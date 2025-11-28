@@ -12,23 +12,27 @@ namespace Items.Inventory
         [SerializeField] private Image icon;
         [SerializeField] private TextMeshProUGUI amountText;
         
-        private ItemAmount itemAmount;
-        private InvSlotUI slotUI;
-        private Canvas canvas;
-        private CanvasGroup canvasGroup;
-        private RectTransform rectTransform;
+        private ItemAmount _itemAmount;
+        private InvSlotUI _slotUI;
+        private Canvas _canvas;
+        private CanvasGroup _canvasGroup;
+        private RectTransform _rectTransform;
         
-        public ItemAmount ItemAmount => itemAmount;
-        public InvSlotUI SlotUI => slotUI;
+        public ItemAmount ItemAmount => _itemAmount;
+        public InvSlotUI SlotUI => _slotUI;
         
         private void Awake()
         {
-            canvas = GetComponentInParent<Canvas>();
-            canvasGroup = GetComponent<CanvasGroup>();
-            if (canvasGroup == null)
-                canvasGroup = gameObject.AddComponent<CanvasGroup>();
-                
-            rectTransform = GetComponent<RectTransform>();
+            _canvas = GetComponentInParent<Canvas>();
+            _canvas = GetComponent<Canvas>();
+            if (_canvas == null)
+            {
+                _canvas = gameObject.AddComponent<Canvas>();
+                _canvas.overrideSorting = true;
+            }
+            _canvas.sortingOrder = 10;
+            
+            _rectTransform = GetComponent<RectTransform>();
             
             if (amountText != null)
                 amountText.raycastTarget = false;
@@ -36,17 +40,17 @@ namespace Items.Inventory
 
         public void SetSlotUI(InvSlotUI invSlotUI)
         {
-            slotUI = invSlotUI;
+            _slotUI = invSlotUI;
         }
         
         public void ShowItem(ItemAmount newItemAmount)
         {
-            itemAmount = newItemAmount;
+            _itemAmount = newItemAmount;
             
             if (icon != null)
             {
-                icon.enabled = !itemAmount.IsEmpty;
-                icon.sprite = itemAmount.IsEmpty ? null : itemAmount.SoItem.Icon;
+                icon.enabled = !_itemAmount.IsEmpty;
+                icon.sprite = _itemAmount.IsEmpty ? null : _itemAmount.SoItem.Icon;
             }
             
             RefreshAmount();
@@ -56,38 +60,47 @@ namespace Items.Inventory
         {
             if (amountText == null) return;
             
-            amountText.SetText(itemAmount.Amount.ToString());
-            amountText.gameObject.SetActive(itemAmount.Amount > 1);
+            amountText.SetText(_itemAmount.Amount.ToString());
+            amountText.gameObject.SetActive(_itemAmount.Amount > 1);
         }
         
         public void OnBeginDrag(PointerEventData eventData)
         {
-            if (itemAmount.IsEmpty) return;
+            if (_itemAmount.IsEmpty) return;
             
-            canvasGroup.alpha = 0.6f;
-            canvasGroup.blocksRaycasts = false;
+            icon.raycastTarget = false;
+            _canvas.sortingOrder = 15;
+            
+            ItemDropper.Show();
             
             ItemsTooltip.Hide();
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            if (itemAmount.IsEmpty) return;
+            if (_itemAmount.IsEmpty) return;
             
-            rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                transform.parent as RectTransform,
+                eventData.position,
+                eventData.pressEventCamera, 
+                out Vector2 localPoint);
+            transform.localPosition = localPoint;
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            canvasGroup.alpha = 1f;
-            canvasGroup.blocksRaycasts = true;
-            rectTransform.anchoredPosition = Vector2.zero;
+            icon.raycastTarget = true;
+            _canvas.sortingOrder = 10;
+            transform.localPosition = Vector3.zero;
+            
+            ItemDropper.Hide();
         }
         
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (!itemAmount.IsEmpty)
-                ItemsTooltip.Show(itemAmount);
+            if (!_itemAmount.IsEmpty)
+                ItemsTooltip.Show(_itemAmount);
         }
 
         public void OnPointerExit(PointerEventData eventData)

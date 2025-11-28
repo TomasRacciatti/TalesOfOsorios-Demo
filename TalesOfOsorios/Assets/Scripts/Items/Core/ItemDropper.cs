@@ -28,11 +28,9 @@ namespace Items.Core
             InvSlotUI slotUI = fromItemUI.SlotUI;
             if (slotUI == null) return;
             
-            ItemAmount itemToDrop = new ItemAmount(fromItemUI.ItemAmount);
-            
             Drop(fromItemUI.ItemAmount);
             
-            slotUI.InvView.InventorySystem.RemoveItem(ref itemToDrop);
+            slotUI.InvView.InventorySystem.SetItemByIndex(slotUI.InvSlot, new ItemAmount());
             
             Hide();
         }
@@ -44,6 +42,11 @@ namespace Items.Core
             Vector3 dropPosition = GameManager.Player.transform.position + GameManager.Player.transform.forward * 2f;
             GameObject droppedItem = Instantiate(PrefabsManager.ItemPrefabPickup, dropPosition, Quaternion.identity);
             ItemPickup pickup = droppedItem.GetComponent<ItemPickup>();
+            
+            if (pickup != null)
+            {
+                pickup.SetItemAmount(itemAmount);
+            }
         }
     }
 }
