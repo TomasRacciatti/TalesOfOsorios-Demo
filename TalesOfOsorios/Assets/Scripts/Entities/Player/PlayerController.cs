@@ -105,6 +105,11 @@ namespace Entities.Player
             // TODO: Interact
         }
 
+        public void OnInventory(InputAction.CallbackContext context)
+        {
+            // ToDo: open/close inventory
+        }
+
         private void HandleMovement()
         {
             float targetVelocityX = moveInput.x * playerEntity.CurrentSpeed;
