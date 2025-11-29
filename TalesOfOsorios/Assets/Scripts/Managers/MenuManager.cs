@@ -5,12 +5,12 @@ namespace Managers
 {
     public class MenuManager : MonoBehaviour
     {
-        [Header("Panels")]
+        [Header("Pause Panels")]
         [SerializeField] private GameObject panel;
         [SerializeField] private GameObject bg;
         private bool _isOpen;
         
-        public bool Open => _isOpen;
+        public bool IsOpen => _isOpen;
         
         private void Start()
         {
