@@ -10,7 +10,9 @@ namespace Managers
         [Header("Pause Panels")]
         [SerializeField] private GameObject panel;
         [SerializeField] private GameObject bg;
+        
         private bool _isOpen;
+        private bool _isGameOver;
         
         public bool IsOpen => _isOpen;
         
@@ -38,6 +40,17 @@ namespace Managers
                 _isOpen = true;
             
                 GameManager.Pause();
+            }
+        }
+        
+        public void ShowGameOver()
+        {
+            if (panel != null && bg != null)
+            {
+                panel.SetActive(true);
+                bg.SetActive(true);
+                _isGameOver = true;
+                Cursor.visible = true;
             }
         }
         

@@ -8,6 +8,7 @@ namespace Managers
         
         [SerializeField] private InvManager invManager;
         [SerializeField] private MenuManager pauseMenuController;
+        [SerializeField] private MenuManager gameOverMenuController;
         
         [SerializeField] private GameObject saveText;
         
@@ -36,6 +37,14 @@ namespace Managers
                  return pauseMenuController.IsOpen;
              }
              return false;
+         }
+
+         public void ShowGameOver()
+         {
+             if (gameOverMenuController != null)
+             {
+                 gameOverMenuController.ShowGameOver();
+             }
          }
         
         public bool ToggleInventory()

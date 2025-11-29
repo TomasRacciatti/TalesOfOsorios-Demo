@@ -18,6 +18,7 @@ namespace Entities
         protected float currentSpeed;
         protected bool isDead = false;
         protected bool isAttacking = false;
+        protected float lastAttackTime = -1f;
     
         public float CurrentHealth => currentHealth;
         public float CurrentSpeed => currentSpeed;
@@ -34,6 +35,7 @@ namespace Entities
         private const string ANIM_HEAVY_ATTACK = "HeavyAttack";
         private const string ANIM_HIT = "Hit";
         private const string ANIM_DIE = "Die";
+        private const string ANIM_DEAD = "Dead";
 
         protected virtual void Awake()
         {
@@ -97,17 +99,19 @@ namespace Entities
         
         public void PerformAttack()
         {
-            if (isAttacking || isDead) return;
+            if (isAttacking || isDead || Time.time < lastAttackTime + stats.AttackCooldown) return;
         
             isAttacking = true;
+            lastAttackTime = Time.time;
             animator.SetTrigger(ANIM_ATTACK);
         }
     
         public void PerformHeavyAttack()
         {
-            if (isAttacking || isDead) return;
+            if (isAttacking || isDead || Time.time < lastAttackTime + stats.AttackCooldown) return;
         
             isAttacking = true;
+            lastAttackTime = Time.time;
             animator.SetTrigger(ANIM_HEAVY_ATTACK);
         }
         
@@ -151,6 +155,7 @@ namespace Entities
         {
             if (animator != null)
             {
+                animator.SetBool(ANIM_DEAD, true);
                 animator.SetTrigger(ANIM_DIE);
             }
         }
