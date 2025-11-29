@@ -7,7 +7,7 @@
             "id": "40b7d9dc-1a8e-4a88-9fe6-9acbb56455e7",
             "actions": [
                 {
-                    "name": "Climb",
+                    "name": "Pause",
                     "type": "Button",
                     "id": "9fce13d1-cffe-4883-8fac-d714692860b3",
                     "expectedControlType": "",
@@ -74,11 +74,11 @@
                 {
                     "name": "",
                     "id": "e631deda-88f6-409b-9fa4-1edb78b74b00",
-                    "path": "<Keyboard>/w",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Climb",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

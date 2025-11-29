@@ -72,9 +72,9 @@ namespace Entities.Player
             UpdateAnimations();
         }
 
-        public void OnClimb(InputAction.CallbackContext context)
+        public void OnPause(InputAction.CallbackContext context)
         {
-            // TODO: Climbing logic
+            // TODO: Pause logic
         }
 
         public void OnMove(InputAction.CallbackContext context)

@@ -93,7 +93,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             ""id"": ""40b7d9dc-1a8e-4a88-9fe6-9acbb56455e7"",
             ""actions"": [
                 {
-                    ""name"": ""Climb"",
+                    ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""9fce13d1-cffe-4883-8fac-d714692860b3"",
                     ""expectedControlType"": """",
@@ -160,11 +160,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""e631deda-88f6-409b-9fa4-1edb78b74b00"",
-                    ""path"": ""<Keyboard>/w"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Climb"",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -263,7 +263,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
 }");
         // PlayerMapping
         m_PlayerMapping = asset.FindActionMap("PlayerMapping", throwIfNotFound: true);
-        m_PlayerMapping_Climb = m_PlayerMapping.FindAction("Climb", throwIfNotFound: true);
+        m_PlayerMapping_Pause = m_PlayerMapping.FindAction("Pause", throwIfNotFound: true);
         m_PlayerMapping_Move = m_PlayerMapping.FindAction("Move", throwIfNotFound: true);
         m_PlayerMapping_Attack = m_PlayerMapping.FindAction("Attack", throwIfNotFound: true);
         m_PlayerMapping_HeavyAttack = m_PlayerMapping.FindAction("HeavyAttack", throwIfNotFound: true);
@@ -350,7 +350,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     // PlayerMapping
     private readonly InputActionMap m_PlayerMapping;
     private List<IPlayerMappingActions> m_PlayerMappingActionsCallbackInterfaces = new List<IPlayerMappingActions>();
-    private readonly InputAction m_PlayerMapping_Climb;
+    private readonly InputAction m_PlayerMapping_Pause;
     private readonly InputAction m_PlayerMapping_Move;
     private readonly InputAction m_PlayerMapping_Attack;
     private readonly InputAction m_PlayerMapping_HeavyAttack;
@@ -369,9 +369,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// </summary>
         public PlayerMappingActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "PlayerMapping/Climb".
+        /// Provides access to the underlying input action "PlayerMapping/Pause".
         /// </summary>
-        public InputAction @Climb => m_Wrapper.m_PlayerMapping_Climb;
+        public InputAction @Pause => m_Wrapper.m_PlayerMapping_Pause;
         /// <summary>
         /// Provides access to the underlying input action "PlayerMapping/Move".
         /// </summary>
@@ -422,9 +422,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerMappingActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerMappingActionsCallbackInterfaces.Add(instance);
-            @Climb.started += instance.OnClimb;
-            @Climb.performed += instance.OnClimb;
-            @Climb.canceled += instance.OnClimb;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
@@ -454,9 +454,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="PlayerMappingActions" />
         private void UnregisterCallbacks(IPlayerMappingActions instance)
         {
-            @Climb.started -= instance.OnClimb;
-            @Climb.performed -= instance.OnClimb;
-            @Climb.canceled -= instance.OnClimb;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
@@ -516,12 +516,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     public interface IPlayerMappingActions
     {
         /// <summary>
-        /// Method invoked when associated input action "Climb" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnClimb(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Move" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
