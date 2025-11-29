@@ -46,7 +46,6 @@ namespace Managers
         
         public void ToMainMenu()
         {
-            GameManager.Resume();
             SceneManager.LoadScene("MainMenu");
         }
 
@@ -54,7 +53,6 @@ namespace Managers
         {
             if (GameManager.Canvas == null || GameManager.Canvas.InvManager == null)
             {
-                Debug.LogError("Cannot save: InvManager not found!");
                 return;
             }
             
@@ -67,10 +65,23 @@ namespace Managers
                 GameManager.Canvas.InvManager.EquipInventory);
             
             SaveSystem.SaveSystem.SaveGame(saveData);
-            Debug.Log("Game saved");
         }
 
         public void LoadGame()
+        {
+            bool isInGameScene = SceneManager.GetActiveScene().name == "Game";
+
+            if (isInGameScene)
+            {
+                LoadGameIngame();
+            }
+            else
+            {
+                LoadGameFromMainMenu();
+            }
+        }
+
+        private void LoadGameIngame()
         {
             if (GameManager.Canvas == null || GameManager.Canvas.InvManager == null)
             {
@@ -87,6 +98,18 @@ namespace Managers
                 loadedData.equipInventory, GameManager.Canvas.InvManager.EquipInventory);
             
             Debug.Log("Game loaded");
+        }
+
+        private void LoadGameFromMainMenu()
+        {
+            if (!SaveSystem.SaveSystem.SaveExists())
+            {
+                Debug.LogWarning("No save file found!");
+                return;
+            }
+
+            SaveSystem.SaveSystem.ShouldLoadOnStart = true;
+            SceneManager.LoadScene("Game");
         }
         
         public void ExitGame()

@@ -1,6 +1,7 @@
 using Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 namespace Entities.Player
 {
@@ -44,6 +45,33 @@ namespace Entities.Player
         {
             GameManager.RegisterPlayer(this);
             Instantiate(PrefabsManager.Canvas, null, false);
+
+            if (SaveSystem.SaveSystem.ShouldLoadOnStart)
+            {
+                StartCoroutine(LoadGameAfterCanvasReady());
+            }
+            else
+            {
+                GameManager.Resume();
+            }
+        }
+
+        private IEnumerator LoadGameAfterCanvasReady()
+        {
+            yield return new WaitForEndOfFrame();
+            
+            if (GameManager.Canvas != null && GameManager.Canvas.InvManager != null)
+            {
+                SaveSystem.GameSaveData loadedData = SaveSystem.SaveSystem.LoadGame();
+                
+                SaveSystem.SaveDataConverter.LoadIntoInventory(
+                    loadedData.baseInventory, GameManager.Canvas.InvManager.BaseInventory);
+                
+                SaveSystem.SaveDataConverter.LoadIntoInventory(
+                    loadedData.equipInventory, GameManager.Canvas.InvManager.EquipInventory);
+            }
+            
+            SaveSystem.SaveSystem.ShouldLoadOnStart = false;
             GameManager.Resume();
         }
 

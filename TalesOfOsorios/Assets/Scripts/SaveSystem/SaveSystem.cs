@@ -8,6 +8,8 @@ namespace SaveSystem
         private const string SAVE_FILE_NAME = "gamesave.json";
         
         private static string SaveFilePath => Path.Combine(Application.persistentDataPath, SAVE_FILE_NAME);
+        
+        public static bool ShouldLoadOnStart { get; set; } = false;
 
         public static void SaveGame(GameSaveData data)
         {
@@ -17,7 +19,7 @@ namespace SaveSystem
                 string json = JsonUtility.ToJson(data, true);
                 File.WriteAllText(SaveFilePath, json);
                 
-                Debug.Log($"Game saved successfully to: {SaveFilePath}");
+                //Debug.Log($"Game saved successfully to: {SaveFilePath}");
             }
             catch (System.Exception e)
             {
@@ -31,19 +33,19 @@ namespace SaveSystem
             {
                 if (!File.Exists(SaveFilePath))
                 {
-                    Debug.LogWarning("No save file found. Returning new save data.");
+                    //Debug.LogWarning("No save file found. Returning new save data.");
                     return new GameSaveData();
                 }
 
                 string json = File.ReadAllText(SaveFilePath);
                 GameSaveData data = JsonUtility.FromJson<GameSaveData>(json);
                 
-                Debug.Log($"Game loaded successfully from: {SaveFilePath}");
+                //Debug.Log($"Game loaded successfully from: {SaveFilePath}");
                 return data;
             }
             catch (System.Exception e)
             {
-                Debug.LogError($"Failed to load game: {e.Message}");
+                //Debug.LogError($"Failed to load game: {e.Message}");
                 return new GameSaveData();
             }
         }
