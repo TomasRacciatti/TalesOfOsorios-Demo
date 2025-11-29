@@ -28,7 +28,7 @@ public class BackgroundController : MonoBehaviour
         ValidateArrayLengths();
     }
     
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         Vector3 deltaMovement = cameraTransform.position - _lastCameraPosition;
 
