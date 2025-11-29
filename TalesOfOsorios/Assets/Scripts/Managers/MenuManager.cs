@@ -50,6 +50,7 @@ namespace Managers
                 panel.SetActive(true);
                 bg.SetActive(true);
                 _isGameOver = true;
+                Cursor.visible = true;
             }
         }
         

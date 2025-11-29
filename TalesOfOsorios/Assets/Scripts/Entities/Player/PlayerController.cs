@@ -116,7 +116,7 @@ namespace Entities.Player
 
         public void OnPause(InputAction.CallbackContext context)
         {
-            if (context.performed && GameManager.Canvas != null)
+            if (context.performed && GameManager.Canvas != null && !playerEntity.IsDead)
             {
                 GameManager.Canvas.TogglePauseMenu();
             }
@@ -159,9 +159,9 @@ namespace Entities.Player
             }
         }
 
-        public void OnInventory(InputAction.CallbackContext context)
+        public void OnInventory(InputAction.CallbackContext context )
         {
-            if (context.performed && GameManager.Canvas != null)
+            if (context.performed && GameManager.Canvas != null && !playerEntity.IsDead)
             {
                 bool isOpen = GameManager.Canvas.ToggleInventory();
             }
