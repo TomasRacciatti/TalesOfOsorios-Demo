@@ -104,7 +104,6 @@ namespace Entities.Enemy
             if (_playerEntity != null && _playerEntity.IsDead)
             {
                 _currentState = EnemyState.Patrolling;
-                Debug.Log("Player dead, patrolling");
                 return;
             }
 
@@ -116,23 +115,19 @@ namespace Entities.Enemy
                 if (distanceToPlayer <= attackRange && facingPlayer)
                 {
                     _currentState = EnemyState.Attacking;
-                    Debug.Log("Attacking");
                 }
                 else
                 {
                     _currentState = EnemyState.Chasing;
-                    Debug.Log("Chasing");
                 }
             }
             else if (distanceToPlayer <= detectionRange && facingPlayer)
             {
                 _currentState = EnemyState.Chasing;
-                Debug.Log("Chasing2");
             }
             else
             {
                 _currentState = EnemyState.Patrolling;
-                Debug.Log("Patrolling");
             }
         }
 

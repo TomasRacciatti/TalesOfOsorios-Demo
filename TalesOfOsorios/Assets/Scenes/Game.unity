@@ -14069,6 +14069,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 95222202409354866, guid: 300d2cf1215fc4b4291fb9d984527630, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 7a34c9986832c2d43860b90a8689df19, type: 2}
     - target: {fileID: 3528918641727538941, guid: 300d2cf1215fc4b4291fb9d984527630, type: 3}
       propertyPath: patrolPointA
       value: 
