@@ -9,8 +9,15 @@ namespace Entities.Enemy
         {
             base.HandleDeath();
             
-            GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
-            GetComponent<Collider2D>().enabled = false;
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            rb.linearVelocity = Vector2.zero;
+            rb.bodyType = RigidbodyType2D.Static;
+            
+            EnemyController controller = GetComponent<EnemyController>();
+            if (controller != null)
+            {
+                controller.enabled = false;
+            }
             
             Destroy(gameObject, 3f);
         }
