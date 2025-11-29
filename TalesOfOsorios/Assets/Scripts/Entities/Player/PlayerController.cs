@@ -74,7 +74,10 @@ namespace Entities.Player
 
         public void OnPause(InputAction.CallbackContext context)
         {
-            // TODO: Pause logic
+            if (context.performed && GameManager.Canvas != null)
+            {
+                GameManager.Canvas.TogglePauseMenu();
+            }
         }
 
         public void OnMove(InputAction.CallbackContext context)

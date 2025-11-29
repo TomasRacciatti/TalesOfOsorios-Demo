@@ -7,6 +7,7 @@ namespace Managers
         private static CanvasManager _instance;
         
         [SerializeField] private InvManager invManager;
+        [SerializeField] private MenuManager pauseMenuController;
         
         public InvManager InvManager => invManager;
         
@@ -23,12 +24,25 @@ namespace Managers
             GameManager.RegisterCanvas(this);
         }
         
-        //ToDo: Implement pause logic
-        // public bool TogglePauseMenu()
-        // {
-        //     pauseMenuUI.TogglePause();
-        //     return pauseMenuUI.Open;
-        // }
+         public bool TogglePauseMenu()
+         {
+             if (pauseMenuController != null)
+             {
+                 pauseMenuController.TogglePause();
+                
+                 if (pauseMenuController.IsOpen)
+                 {
+                     GameManager.Player.DisableGameplayInput();
+                 }
+                 else
+                 {
+                     GameManager.Player.EnableGameplayInput();
+                 }
+                
+                 return pauseMenuController.IsOpen;
+             }
+             return false;
+         }
         
         public bool ToggleInventory()
         {
