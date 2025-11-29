@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EntityStats
   maxHealth: 50
   baseSpeed: 4
+  attackCooldown: 0.75
   minAttackDamage: 10
   maxAttackDamage: 20
