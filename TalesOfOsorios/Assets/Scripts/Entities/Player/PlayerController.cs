@@ -190,6 +190,7 @@ namespace Entities.Player
         public void DisableGameplayInput()
         {
             _inputEnabled = false;
+            _moveInput = Vector2.zero;
         }
         
         public void EnableGameplayInput()
