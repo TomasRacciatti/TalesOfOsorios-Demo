@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using SaveSystem;
 
 namespace Managers
 {
@@ -51,12 +52,41 @@ namespace Managers
 
         public void SaveGame()
         {
-            //ToDo: implement save logic
+            if (GameManager.Canvas == null || GameManager.Canvas.InvManager == null)
+            {
+                Debug.LogError("Cannot save: InvManager not found!");
+                return;
+            }
+            
+            GameSaveData saveData = new GameSaveData();
+
+            saveData.baseInventory = SaveDataConverter.ConvertToSaveData(
+                GameManager.Canvas.InvManager.BaseInventory);
+            
+            saveData.equipInventory = SaveDataConverter.ConvertToSaveData(
+                GameManager.Canvas.InvManager.EquipInventory);
+            
+            SaveSystem.SaveSystem.SaveGame(saveData);
+            Debug.Log("Game saved");
         }
 
         public void LoadGame()
         {
-            //ToDo: implement load logic
+            if (GameManager.Canvas == null || GameManager.Canvas.InvManager == null)
+            {
+                Debug.LogError("Cannot load: InvManager not found!");
+                return;
+            }
+            
+            GameSaveData loadedData = SaveSystem.SaveSystem.LoadGame();
+
+            SaveDataConverter.LoadIntoInventory(
+                loadedData.baseInventory, GameManager.Canvas.InvManager.BaseInventory);
+
+            SaveDataConverter.LoadIntoInventory(
+                loadedData.equipInventory, GameManager.Canvas.InvManager.EquipInventory);
+            
+            Debug.Log("Game loaded");
         }
         
         public void ExitGame()
