@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37907135925854241942d9c041b94fef, type: 3}
+  m_Name: HealthPotion
+  m_EditorClassIdentifier: Assembly-CSharp::Items.Core.SoItem
+  itemName: Health Potion
+  icon: {fileID: 5946725536492087345, guid: 397f5092c9011d34e883fe7fb1c3e4cb, type: 3}
+  description: With this potion there is no injury bad enough that will keep you
+    on the ground
+  summary: Heals 20 pts
+  stack: 5
+  equipSlotId: 1

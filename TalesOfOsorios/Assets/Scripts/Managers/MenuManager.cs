@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using SaveSystem;
+using System.Collections;
 
 namespace Managers
 {
@@ -22,6 +24,7 @@ namespace Managers
             if (_isOpen)
             {
                 GameManager.Resume();
+                GameManager.Player.EnableGameplayInput();
 
                 bg.SetActive(false);
                 panel.SetActive(false);
@@ -29,6 +32,7 @@ namespace Managers
             }
             else
             {
+                GameManager.Player.DisableGameplayInput(); 
                 bg.SetActive(true);
                 panel.SetActive(true);
                 _isOpen = true;
@@ -45,18 +49,48 @@ namespace Managers
         
         public void ToMainMenu()
         {
-            GameManager.Resume();
             SceneManager.LoadScene("MainMenu");
         }
 
         public void SaveGame()
         {
-            //ToDo: implement save logic
+            if (GameManager.Canvas == null || GameManager.Canvas.InvManager == null)
+            {
+                return;
+            }
+            
+            GameSaveData saveData = new GameSaveData();
+
+            saveData.baseInventory = SaveDataConverter.ConvertToSaveData(
+                GameManager.Canvas.InvManager.BaseInventory);
+            
+            saveData.equipInventory = SaveDataConverter.ConvertToSaveData(
+                GameManager.Canvas.InvManager.EquipInventory);
+            
+            saveData.worldItems = SaveDataConverter.ConvertWorldItemsToSaveData();
+            
+            SaveSystem.SaveSystem.SaveGame(saveData);
+
+            StartCoroutine(ActivateSaveText(2f));
+        }
+
+        private IEnumerator ActivateSaveText(float duration)
+        {
+            GameManager.Canvas.SaveText.SetActive(true);
+            yield return new WaitForSeconds(duration);
+            GameManager.Canvas.SaveText.SetActive(false);
         }
 
         public void LoadGame()
         {
-            //ToDo: implement load logic
+            if (!SaveSystem.SaveSystem.SaveExists())
+            {
+                Debug.LogWarning("No save file found!");
+                return;
+            }
+
+            SaveSystem.SaveSystem.ShouldLoadOnStart = true;
+            SceneManager.LoadScene("Game");
         }
         
         public void ExitGame()
