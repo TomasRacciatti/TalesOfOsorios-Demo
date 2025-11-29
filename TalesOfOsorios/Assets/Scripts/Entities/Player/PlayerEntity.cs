@@ -64,5 +64,16 @@ namespace Entities.Player
             
             OnPlayerDeath?.Invoke();
         }
+
+        public override void TakeDamage(float damage)
+        {
+            if (isDead) return;
+            
+            float damageAfterArmor = Mathf.Max(5, damage - _totalArmor);
+    
+            base.TakeDamage(damageAfterArmor);
+            
+            Debug.Log($"Player took {damage} damage, reduced by {_totalArmor} armor. Final damage: {damageAfterArmor}. Health: {currentHealth}/{MaxHealth}");
+        }
     }
 }
