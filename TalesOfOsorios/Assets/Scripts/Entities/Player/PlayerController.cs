@@ -69,6 +69,8 @@ namespace Entities.Player
                 
                 SaveSystem.SaveDataConverter.LoadIntoInventory(
                     loadedData.equipInventory, GameManager.Canvas.InvManager.EquipInventory);
+                
+                SaveSystem.SaveDataConverter.LoadWorldItems(loadedData.worldItems, PrefabsManager.ItemPrefabPickup);
             }
             
             SaveSystem.SaveSystem.ShouldLoadOnStart = false;

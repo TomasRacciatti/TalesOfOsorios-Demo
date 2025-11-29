@@ -41,7 +41,7 @@ namespace SaveSystem
         {
             if (saveData == null || invSystem == null)
             {
-                Debug.LogWarning("Cannot load inventory: null data or system");
+                //Debug.LogWarning("Cannot load inventory: null data or system");
                 return;
             }
 
@@ -66,6 +66,77 @@ namespace SaveSystem
                 {
                     Debug.LogWarning($"Could not find item: {itemData.itemName}");
                     invSystem.SetItemByIndex(i, new ItemAmount());
+                }
+            }
+        }
+
+        public static List<WorldItemData> ConvertWorldItemsToSaveData()
+        {
+            List<WorldItemData> worldItemsData = new List<WorldItemData>();
+            
+            ItemPickup[] allPickups = Object.FindObjectsOfType<ItemPickup>();
+            
+            foreach (ItemPickup pickup in allPickups)
+            {
+                if (pickup.ItemAmount == null || pickup.ItemAmount.IsEmpty)
+                    continue;
+                    
+                WorldItemData itemData = new WorldItemData(
+                    pickup.ItemAmount.SoItem.name,
+                    pickup.ItemAmount.Amount,
+                    pickup.transform.position
+                );
+                
+                worldItemsData.Add(itemData);
+            }
+            
+            return worldItemsData;
+        }
+
+        public static void LoadWorldItems(List<WorldItemData> worldItemsData, GameObject itemPickupPrefab)
+        {
+            if (itemPickupPrefab == null)
+            {
+                Debug.LogError("Cannot load world items: itemPickupPrefab is null!");
+                return;
+            }
+
+            // Clear all items
+            ItemPickup[] existingPickups = Object.FindObjectsOfType<ItemPickup>();
+            foreach (ItemPickup pickup in existingPickups)
+            {
+                Object.Destroy(pickup.gameObject);
+            }
+
+            // All items picked up = no data (so we leave it empty)
+            if (worldItemsData == null || worldItemsData.Count == 0)
+            {
+                return;
+            }
+
+            // We spawn saved items
+            foreach (WorldItemData itemData in worldItemsData)
+            {
+                if (itemData == null || itemData.IsEmpty)
+                    continue;
+
+                var soItem = LoadItemByName(itemData.itemName);
+                
+                if (soItem != null)
+                {
+                    var position = new Vector3(itemData.positionX, itemData.positionY, itemData.positionZ);
+                    var itemObject = Object.Instantiate(itemPickupPrefab, position, Quaternion.identity);
+                    
+                    var pickup = itemObject.GetComponent<ItemPickup>();
+                    if (pickup != null)
+                    {
+                        ItemAmount itemAmount = new ItemAmount(soItem, itemData.amount);
+                        pickup.SetItemAmount(itemAmount);
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning($"Could not find item for world spawn: {itemData.itemName}");
                 }
             }
         }

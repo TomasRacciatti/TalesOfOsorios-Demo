@@ -20,7 +20,7 @@ namespace SaveSystem
             positionZ = 0f;
         }
 
-        public WorldItemData(string name, int amt, UnityEngine.Vector3 pos, bool initial)
+        public WorldItemData(string name, int amt, UnityEngine.Vector3 pos)
         {
             itemName = name;
             amount = amt;

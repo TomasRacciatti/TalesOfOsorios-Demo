@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace SaveSystem
 {
@@ -9,6 +10,7 @@ namespace SaveSystem
         public InventorySaveData baseInventory;
         public InventorySaveData equipInventory;
         public string saveDateTime;
+        public List<WorldItemData> worldItems;
 
         public GameSaveData()
         {
@@ -16,6 +18,7 @@ namespace SaveSystem
             baseInventory = new InventorySaveData();
             equipInventory = new InventorySaveData();
             saveDateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            worldItems = new List<WorldItemData>();
         }
     }
 }
