@@ -74,7 +74,7 @@ namespace SaveSystem
         {
             List<WorldItemData> worldItemsData = new List<WorldItemData>();
             
-            ItemPickup[] allPickups = Object.FindObjectsOfType<ItemPickup>();
+            ItemPickup[] allPickups = Object.FindObjectsByType<ItemPickup>(FindObjectsSortMode.None);
             
             foreach (ItemPickup pickup in allPickups)
             {
@@ -97,12 +97,12 @@ namespace SaveSystem
         {
             if (itemPickupPrefab == null)
             {
-                Debug.LogError("Cannot load world items: itemPickupPrefab is null!");
+                //Debug.LogError("Cannot load world items: itemPickupPrefab is null!");
                 return;
             }
 
             // Clear all items
-            ItemPickup[] existingPickups = Object.FindObjectsOfType<ItemPickup>();
+            ItemPickup[] existingPickups = Object.FindObjectsByType<ItemPickup>(FindObjectsSortMode.None);
             foreach (ItemPickup pickup in existingPickups)
             {
                 Object.Destroy(pickup.gameObject);
@@ -136,7 +136,7 @@ namespace SaveSystem
                 }
                 else
                 {
-                    Debug.LogWarning($"Could not find item for world spawn: {itemData.itemName}");
+                    //Debug.LogWarning($"Could not find item for world spawn: {itemData.itemName}");
                 }
             }
         }

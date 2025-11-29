@@ -45,7 +45,7 @@ namespace SaveSystem
             }
             catch (System.Exception e)
             {
-                //Debug.LogError($"Failed to load game: {e.Message}");
+                Debug.LogError($"Failed to load game: {e.Message}");
                 return new GameSaveData();
             }
         }
