@@ -1,18 +1,19 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Entities.Player
 {
     public class AnimationEventRelay : MonoBehaviour
     {
-        [SerializeField] private PlayerEntity playerEntity;
+        [SerializeField] private Entity entity;
 
         private void Awake()
         {
-            if (playerEntity == null)
+            if (entity == null)
             {
-                playerEntity = GetComponentInParent<PlayerEntity>();
+                entity = GetComponentInParent<Entity>();
 
-                if (playerEntity == null)
+                if (entity == null)
                 {
                     Debug.LogError($"No PlayerEntity found in parent of {gameObject.name}");
                 }
@@ -21,22 +22,22 @@ namespace Entities.Player
 
         public void OnAttackStart()
         {
-            playerEntity.OnAttackStart();
+            entity.OnAttackStart();
         }
 
         public void OnHeavyAttackStart()
         {
-            playerEntity.OnHeavyAttackStart();
+            entity.OnHeavyAttackStart();
         }
 
         public void OnAttackEnd()
         {
-            playerEntity.OnAttackEnd();
+            entity.OnAttackEnd();
         }
 
         public void OnAttackAnimationEnd()
         {
-            playerEntity.OnAttackAnimationEnd();
+            entity.OnAttackAnimationEnd();
         }
     }
 }

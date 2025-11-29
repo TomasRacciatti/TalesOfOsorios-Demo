@@ -281,6 +281,8 @@ GameObject:
   - component: {fileID: 4631402364940636}
   - component: {fileID: 5555353382724371574}
   - component: {fileID: 3030391528332542475}
+  - component: {fileID: 6659320728784841069}
+  - component: {fileID: 3528918641727538941}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -368,6 +370,43 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &6659320728784841069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076146770848506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bc93f9712cb55b46aa34432cfeccb41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemy.EnemyEntity
+  stats: {fileID: 11400000, guid: 5da8c4eb0b4d3ea4a82c3fa7e8674abd, type: 2}
+  weaponCollider: {fileID: 1122475787421923592}
+  heavyAttackMultiplier: 1
+  animator: {fileID: 95222202409354866}
+--- !u!114 &3528918641727538941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076146770848506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ac730ee0605f0429124b8bc5cbadad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemy.EnemyController
+  patrolPointA: {fileID: 0}
+  patrolPointB: {fileID: 0}
+  patrolWaitTime: 2
+  detectionRange: 8
+  attackRange: 1.5
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  visualTransform: {fileID: 4651068261199858}
 --- !u!1 &1086126198031754
 GameObject:
   m_ObjectHideFlags: 0
@@ -1155,7 +1194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponCollider
   targetLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 64
 --- !u!1 &1244011612021246
 GameObject:
   m_ObjectHideFlags: 0
