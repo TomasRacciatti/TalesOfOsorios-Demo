@@ -18,6 +18,7 @@ namespace Entities
         protected float currentSpeed;
         protected bool isDead = false;
         protected bool isAttacking = false;
+        protected float lastAttackTime = -1f;
     
         public float CurrentHealth => currentHealth;
         public float CurrentSpeed => currentSpeed;
@@ -97,17 +98,19 @@ namespace Entities
         
         public void PerformAttack()
         {
-            if (isAttacking || isDead) return;
+            if (isAttacking || isDead || Time.time < lastAttackTime + stats.AttackCooldown) return;
         
             isAttacking = true;
+            lastAttackTime = Time.time;
             animator.SetTrigger(ANIM_ATTACK);
         }
     
         public void PerformHeavyAttack()
         {
-            if (isAttacking || isDead) return;
+            if (isAttacking || isDead || Time.time < lastAttackTime + stats.AttackCooldown) return;
         
             isAttacking = true;
+            lastAttackTime = Time.time;
             animator.SetTrigger(ANIM_HEAVY_ATTACK);
         }
         
