@@ -67,6 +67,8 @@ namespace Managers
             saveData.equipInventory = SaveDataConverter.ConvertToSaveData(
                 GameManager.Canvas.InvManager.EquipInventory);
             
+            saveData.worldItems = SaveDataConverter.ConvertWorldItemsToSaveData();
+            
             SaveSystem.SaveSystem.SaveGame(saveData);
 
             StartCoroutine(ActivateSaveText(2f));
