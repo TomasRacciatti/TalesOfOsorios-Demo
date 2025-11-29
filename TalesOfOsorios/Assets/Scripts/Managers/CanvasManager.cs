@@ -9,7 +9,10 @@ namespace Managers
         [SerializeField] private InvManager invManager;
         [SerializeField] private MenuManager pauseMenuController;
         
+        [SerializeField] private GameObject saveText;
+        
         public InvManager InvManager => invManager;
+        public GameObject SaveText => saveText;
         
         private void Awake()
         {
