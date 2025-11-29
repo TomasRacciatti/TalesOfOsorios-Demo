@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace SaveSystem
 {
+    [Serializable]
     public class InventorySaveData
     {
         public List<SerializableItemData> items;
