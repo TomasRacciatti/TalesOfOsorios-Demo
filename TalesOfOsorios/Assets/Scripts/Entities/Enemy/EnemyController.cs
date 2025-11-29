@@ -1,6 +1,7 @@
 using System;
 using Managers;
 using UnityEngine;
+using Entities.Player;
 
 namespace Entities.Enemy
 {
@@ -28,7 +29,8 @@ namespace Entities.Enemy
 
         private Rigidbody2D _rb;
         private EnemyEntity _enemyEntity;
-        private Transform _player;
+        private PlayerEntity _playerEntity;
+        private Transform _playerTransform;
         private Transform _currentPatrolTarget;
         private float _patrolWaitTimer;
         private bool _isFacingRight = false;
@@ -53,7 +55,30 @@ namespace Entities.Enemy
 
         private void Start()
         {
-            _player = GameManager.Player.transform;
+            _playerTransform = GameManager.Player.transform;
+            
+            _playerEntity = GameManager.Player.GetComponent<PlayerEntity>();
+            if (_playerEntity != null)
+            {
+                _playerEntity.OnPlayerDeath += OnPlayerDeath;
+            }
+        }
+        
+        private void OnPlayerDeath()
+        {
+            _currentState = EnemyState.Patrolling;
+            _rb.linearVelocity = Vector2.zero;
+        }
+        
+        private void OnDestroy()
+        {
+            if (GameManager.Player != null)
+            {
+                if (_playerEntity != null)
+                {
+                    _playerEntity.OnPlayerDeath -= OnPlayerDeath;
+                }
+            }
         }
 
         private void Update()
@@ -74,9 +99,15 @@ namespace Entities.Enemy
         // but I needed to prioritize speed over better code
         private void UpdateState() 
         {
-            if (_player == null) return;
+            if (_playerTransform == null) return;
+            
+            if (_playerEntity != null && _playerEntity.IsDead)
+            {
+                _currentState = EnemyState.Patrolling;
+                return;
+            }
 
-            float distanceToPlayer = Vector2.Distance(transform.position, _player.position);
+            float distanceToPlayer = Vector2.Distance(transform.position, _playerTransform.position);
             bool facingPlayer = IsFacingPlayer();
 
             if (distanceToPlayer <= attackRange)
@@ -95,9 +126,9 @@ namespace Entities.Enemy
 
         private bool IsFacingPlayer()
         {
-            if (_player == null) return false;
+            if (_playerTransform == null) return false;
     
-            var directionToPlayer = _player.position.x - transform.position.x;
+            var directionToPlayer = _playerTransform.position.x - transform.position.x;
     
             if (_isFacingRight)
             {
@@ -156,9 +187,9 @@ namespace Entities.Enemy
         
         private void ChasePlayer()
         {
-            if (_player != null)
+            if (_playerTransform != null)
             {
-                MoveTowards(_player.position);
+                MoveTowards(_playerTransform.position);
             }
         }
         

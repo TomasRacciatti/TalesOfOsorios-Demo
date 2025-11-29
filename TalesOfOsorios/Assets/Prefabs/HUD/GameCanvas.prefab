@@ -2910,6 +2910,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Managers.CanvasManager
   invManager: {fileID: 8593441089575455424}
   pauseMenuController: {fileID: 1003823849878853670}
+  gameOverMenuController: {fileID: 6589666369426371540}
   saveText: {fileID: 814762397003369925}
 --- !u!1 &6426482424173190195
 GameObject:

@@ -76,15 +76,27 @@ namespace Entities.Player
             SaveSystem.SaveSystem.ShouldLoadOnStart = false;
             GameManager.Resume();
         }
+        
+        private void HandlePlayerDeath()
+        {
+            DisableGameplayInput();
+    
+            if (GameManager.Canvas != null)
+            {
+                GameManager.Canvas.ShowGameOver();
+            }
+        }
 
         private void OnEnable()
         {
             _playerInput.Enable();
+            playerEntity.OnPlayerDeath += HandlePlayerDeath;
         }
 
         private void OnDisable()
         {
             _playerInput.Disable();
+            playerEntity.OnPlayerDeath -= HandlePlayerDeath;
         }
 
         private void FixedUpdate()
