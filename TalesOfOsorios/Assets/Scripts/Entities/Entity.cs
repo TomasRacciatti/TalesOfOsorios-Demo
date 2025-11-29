@@ -35,6 +35,7 @@ namespace Entities
         private const string ANIM_HEAVY_ATTACK = "HeavyAttack";
         private const string ANIM_HIT = "Hit";
         private const string ANIM_DIE = "Die";
+        private const string ANIM_DEAD = "Dead";
 
         protected virtual void Awake()
         {
@@ -154,6 +155,7 @@ namespace Entities
         {
             if (animator != null)
             {
+                animator.SetBool(ANIM_DEAD, true);
                 animator.SetTrigger(ANIM_DIE);
             }
         }
