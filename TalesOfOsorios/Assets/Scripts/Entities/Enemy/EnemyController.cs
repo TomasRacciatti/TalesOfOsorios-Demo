@@ -104,23 +104,35 @@ namespace Entities.Enemy
             if (_playerEntity != null && _playerEntity.IsDead)
             {
                 _currentState = EnemyState.Patrolling;
+                Debug.Log("Player dead, patrolling");
                 return;
             }
 
             float distanceToPlayer = Vector2.Distance(transform.position, _playerTransform.position);
             bool facingPlayer = IsFacingPlayer();
 
-            if (distanceToPlayer <= attackRange)
+            if (distanceToPlayer < obligatoryChaseRange)
             {
-                _currentState = EnemyState.Attacking;
+                if (distanceToPlayer <= attackRange && facingPlayer)
+                {
+                    _currentState = EnemyState.Attacking;
+                    Debug.Log("Attacking");
+                }
+                else
+                {
+                    _currentState = EnemyState.Chasing;
+                    Debug.Log("Chasing");
+                }
             }
-            else if (distanceToPlayer <  obligatoryChaseRange || distanceToPlayer <= detectionRange && facingPlayer)
+            else if (distanceToPlayer <= detectionRange && facingPlayer)
             {
                 _currentState = EnemyState.Chasing;
+                Debug.Log("Chasing2");
             }
             else
             {
                 _currentState = EnemyState.Patrolling;
+                Debug.Log("Patrolling");
             }
         }
 
@@ -200,6 +212,17 @@ namespace Entities.Enemy
             if (!_enemyEntity.IsAttacking)
             {
                 _enemyEntity.PerformAttack();
+                StartCoroutine(ResetAttackState());
+            }
+        }
+        
+        private System.Collections.IEnumerator ResetAttackState()
+        {
+            yield return new WaitForSeconds(1f);
+    
+            if (_enemyEntity.IsAttacking)
+            {
+                _enemyEntity.OnAttackAnimationEnd();
             }
         }
         

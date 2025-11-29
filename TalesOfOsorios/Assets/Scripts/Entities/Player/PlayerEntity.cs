@@ -73,7 +73,7 @@ namespace Entities.Player
     
             base.TakeDamage(damageAfterArmor);
             
-            Debug.Log($"Player took {damage} damage, reduced by {_totalArmor} armor. Final damage: {damageAfterArmor}. Health: {currentHealth}/{MaxHealth}");
+            //Debug.Log($"Player took {damage} damage, reduced by {_totalArmor} armor. Final damage: {damageAfterArmor}. Health: {currentHealth}/{MaxHealth}");
         }
     }
 }
