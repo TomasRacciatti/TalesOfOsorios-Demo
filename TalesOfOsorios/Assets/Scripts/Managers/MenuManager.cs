@@ -23,6 +23,7 @@ namespace Managers
             if (_isOpen)
             {
                 GameManager.Resume();
+                GameManager.Player.EnableGameplayInput();
 
                 bg.SetActive(false);
                 panel.SetActive(false);
@@ -30,6 +31,7 @@ namespace Managers
             }
             else
             {
+                GameManager.Player.DisableGameplayInput(); 
                 bg.SetActive(true);
                 panel.SetActive(true);
                 _isOpen = true;

@@ -30,15 +30,6 @@ namespace Managers
              {
                  pauseMenuController.TogglePause();
                 
-                 if (pauseMenuController.IsOpen)
-                 {
-                     GameManager.Player.DisableGameplayInput();
-                 }
-                 else
-                 {
-                     GameManager.Player.EnableGameplayInput();
-                 }
-                
                  return pauseMenuController.IsOpen;
              }
              return false;
