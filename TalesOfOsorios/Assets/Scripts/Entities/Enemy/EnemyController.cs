@@ -31,9 +31,9 @@ namespace Entities.Enemy
         private Transform _player;
         private Transform _currentPatrolTarget;
         private float _patrolWaitTimer;
-        private bool _isFacingRight = true;
+        private bool _isFacingRight = false;
         
-        private const float PATROL_REACH_THRESHOLD = 0.05f;
+        private const float PATROL_REACH_THRESHOLD = 0.5f;
 
         private void Awake()
         {
@@ -43,6 +43,11 @@ namespace Entities.Enemy
             if (patrolPointA != null)
             {
                 _currentPatrolTarget = patrolPointA;
+            }
+            
+            if (visualTransform != null && !_isFacingRight)
+            {
+                Flip();
             }
         }
 
